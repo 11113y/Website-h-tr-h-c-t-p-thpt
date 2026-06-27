@@ -1,0 +1,38 @@
+@startuml
+title Use Case - Dong Gop Va Phan Hoi
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Hoc sinh" as Student
+actor "Admin" as Admin
+
+rectangle "Dong gop cong thuc va phan hoi" {
+  usecase "Dong gop cong thuc" as UC_SubmitFormula
+  usecase "Theo doi trang thai cong thuc" as UC_TrackFormula
+  usecase "Duyet / tu choi cong thuc" as UC_ReviewFormula
+  usecase "Cong 100 diem khi duyet" as UC_Reward
+
+  usecase "Gui gop y" as UC_SendFeedback
+  usecase "Xem phan hoi" as UC_ViewReply
+  usecase "Xu ly gop y" as UC_HandleFeedback
+  usecase "Tra loi hoc sinh" as UC_ReplyFeedback
+}
+
+Student --> UC_SubmitFormula
+Student --> UC_TrackFormula
+Student --> UC_SendFeedback
+Student --> UC_ViewReply
+
+Admin --> UC_ReviewFormula
+Admin --> UC_Reward
+Admin --> UC_HandleFeedback
+Admin --> UC_ReplyFeedback
+
+UC_ReviewFormula ..> UC_SubmitFormula : <<extend>>
+UC_ReviewFormula ..> UC_Reward : <<include>>
+UC_HandleFeedback ..> UC_SendFeedback : <<extend>>
+UC_ReplyFeedback ..> UC_ViewReply : <<extend>>
+
+@enduml

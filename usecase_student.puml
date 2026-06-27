@@ -1,0 +1,54 @@
+@startuml
+title Use Case - Hoc Sinh
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Hoc sinh" as Student
+
+rectangle "Chuc nang danh cho Hoc sinh" {
+  usecase "Dang ky / Dang nhap" as UC_Auth
+  usecase "Xem thong tin ca nhan" as UC_Profile
+  usecase "Cap nhat ho so" as UC_UpdateProfile
+  usecase "Hoc bai va xem tai lieu" as UC_Learn
+  usecase "Mo khoa noi dung VIP" as UC_Unlock
+  usecase "Xem kho de thi" as UC_ExamList
+  usecase "Lam bai thi" as UC_DoExam
+  usecase "Xem ket qua thi" as UC_Result
+  usecase "Xem giai thich dap an" as UC_Explanation
+  usecase "Luu cau hoi" as UC_SaveQuestion
+  usecase "Quan ly bo suu tap" as UC_Collections
+  usecase "Xem bang xep hang" as UC_Leaderboard
+  usecase "Xem kho cong thuc" as UC_ViewFormula
+  usecase "Dong gop cong thuc" as UC_SubmitFormula
+  usecase "Ve do thi" as UC_Grapher
+  usecase "Doc blog / tai lieu" as UC_Blog
+  usecase "Gui gop y" as UC_Feedback
+  usecase "Xem phan hoi" as UC_ViewFeedback
+}
+
+Student --> UC_Auth
+Student --> UC_Profile
+Student --> UC_UpdateProfile
+Student --> UC_Learn
+Student --> UC_Unlock
+Student --> UC_ExamList
+Student --> UC_DoExam
+Student --> UC_Result
+Student --> UC_Explanation
+Student --> UC_SaveQuestion
+Student --> UC_Collections
+Student --> UC_Leaderboard
+Student --> UC_ViewFormula
+Student --> UC_SubmitFormula
+Student --> UC_Grapher
+Student --> UC_Blog
+Student --> UC_Feedback
+Student --> UC_ViewFeedback
+
+UC_DoExam ..> UC_Result : <<include>>
+UC_Result ..> UC_Explanation : <<extend>>
+UC_UpdateProfile ..> UC_Profile : <<extend>>
+
+@enduml

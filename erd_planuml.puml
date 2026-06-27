@@ -1,0 +1,214 @@
+@startuml
+title ERD - TD Math / Web Hoc Toan
+
+hide circle
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+
+entity "users" as users {
+  * id : CHAR(36) <<PK>>
+  --
+  username : VARCHAR(50) <<UQ>>
+  email : VARCHAR(100) <<UQ>>
+  password_hash : VARCHAR(255)
+  role : VARCHAR(20)
+  points : INT
+  streak_count : INT
+  last_active_at : DATETIME
+  completed_lessons : JSON
+  unlocked_lessons : JSON
+  unlocked_documents : JSON
+  completed_materials : JSON
+  created_at : DATETIME
+}
+
+entity "subjects" as subjects {
+  * id : INT <<PK>>
+  --
+  grade : INT <<UQ>>
+  name : VARCHAR(100)
+  slug : VARCHAR(100) <<UQ>>
+  order_index : INT
+}
+
+entity "chapters" as chapters {
+  * id : CHAR(36) <<PK>>
+  --
+  subject_id : INT <<FK>>
+  name : VARCHAR(150)
+  slug : VARCHAR(150) <<UQ>>
+  order_index : INT
+}
+
+entity "lessons" as lessons {
+  * id : CHAR(36) <<PK>>
+  --
+  chapter_id : CHAR(36) <<FK>>
+  title : VARCHAR(200)
+  slug : VARCHAR(200) <<UQ>>
+  content : LONGTEXT
+  is_vip : TINYINT(1)
+  points_required : INT
+  order_index : INT
+  pdf_url : VARCHAR(500)
+  created_at : DATETIME
+}
+
+entity "study_materials" as study_materials {
+  * id : CHAR(36) <<PK>>
+  --
+  lesson_id : CHAR(36) <<FK>>
+  title : VARCHAR(200)
+  slug : VARCHAR(200) <<UQ>>
+  content : LONGTEXT
+  pdf_url : VARCHAR(500)
+  video_url : VARCHAR(500)
+  is_vip : TINYINT(1)
+  points_required : INT
+  order_index : INT
+  created_at : DATETIME
+}
+
+entity "questions" as questions {
+  * id : CHAR(36) <<PK>>
+  --
+  chapter_id : CHAR(36) <<FK nullable>>
+  question_text : TEXT
+  question_type : VARCHAR(30)
+  difficulty : VARCHAR(20)
+  explanation : TEXT
+  points : INT
+  options : JSON
+  images : JSON
+  sol_images : JSON
+  created_at : DATETIME
+}
+
+entity "exams" as exams {
+  * id : CHAR(36) <<PK>>
+  --
+  title : VARCHAR(200)
+  description : TEXT
+  subject_id : INT <<FK nullable>>
+  lesson_id : CHAR(36) <<FK nullable>>
+  time_limit_minutes : INT
+  question_ids : JSON
+  pdf_url : VARCHAR(500)
+  answer_key : JSON
+  created_at : DATETIME
+}
+
+entity "user_exam_results" as user_exam_results {
+  * id : CHAR(36) <<PK>>
+  --
+  user_id : CHAR(36) <<FK>>
+  exam_id : CHAR(36) <<FK>>
+  score : FLOAT
+  points_earned : INT
+  time_spent_seconds : INT
+  answers : JSON
+  completed_at : DATETIME
+}
+
+entity "collections" as collections {
+  * id : CHAR(36) <<PK>>
+  --
+  user_id : CHAR(36) <<FK>>
+  name : VARCHAR(100)
+  description : TEXT
+  created_at : DATETIME
+}
+
+entity "bookmarks" as bookmarks {
+  * id : CHAR(36) <<PK>>
+  --
+  user_id : CHAR(36) <<FK>>
+  question_id : CHAR(36) <<FK>>
+  folder_id : CHAR(36) <<FK nullable>>
+  is_pinned : TINYINT(1)
+  note : TEXT
+  created_at : DATETIME
+}
+
+entity "documents" as documents {
+  * id : CHAR(36) <<PK>>
+  --
+  subject_id : INT <<FK nullable>>
+  title : VARCHAR(200)
+  description : TEXT
+  file_url : VARCHAR(500)
+  is_vip : TINYINT(1)
+  points_required : INT
+  download_count : INT
+  created_at : DATETIME
+}
+
+entity "articles" as articles {
+  * id : CHAR(36) <<PK>>
+  --
+  title : VARCHAR(200)
+  content : LONGTEXT
+  summary : TEXT
+  author_id : CHAR(36) <<FK>>
+  thumbnail : VARCHAR(500)
+  created_at : DATETIME
+}
+
+entity "feedbacks" as feedbacks {
+  * id : CHAR(36) <<PK>>
+  --
+  user_id : CHAR(36) <<FK nullable>>
+  title : VARCHAR(200)
+  content : TEXT
+  feedback_type : VARCHAR(50)
+  reference_id : CHAR(36)
+  status : VARCHAR(20)
+  admin_notes : TEXT
+  created_at : DATETIME
+}
+
+entity "formulas" as formulas {
+  * id : CHAR(36) <<PK>>
+  --
+  title : VARCHAR(200)
+  latex : TEXT
+  image_url : VARCHAR(500)
+  description : TEXT
+  status : VARCHAR(20)
+  created_by : CHAR(36) <<FK nullable>>
+  reward_granted : TINYINT(1)
+  created_at : DATETIME
+}
+
+entity "password_reset_tokens" as password_reset_tokens {
+  * id : CHAR(36) <<PK>>
+  --
+  user_id : CHAR(36) <<FK>>
+  token : CHAR(36) <<UQ>>
+  expires_at : DATETIME
+  used_at : DATETIME
+  created_at : DATETIME
+}
+
+subjects ||--o{ chapters : has
+chapters ||--o{ lessons : has
+lessons ||--o{ study_materials : has
+chapters ||--o{ questions : contains
+
+subjects ||--o{ exams : classifies
+lessons ||--o{ exams : lesson_exam
+exams ||--o{ user_exam_results : has_results
+users ||--o{ user_exam_results : submits
+
+users ||--o{ collections : owns
+users ||--o{ bookmarks : creates
+questions ||--o{ bookmarks : saved_as
+collections ||--o{ bookmarks : groups
+
+subjects ||--o{ documents : has
+users ||--o{ articles : writes
+users ||--o{ feedbacks : sends
+users ||--o{ formulas : contributes
+users ||--o{ password_reset_tokens : requests
+
+@enduml

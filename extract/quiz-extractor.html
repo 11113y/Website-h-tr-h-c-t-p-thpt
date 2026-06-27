@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Extractor – Trích xuất đề thi .docx</title>
+  <meta name="description" content="Công cụ trích xuất câu hỏi, đáp án từ file Word .docx trực tiếp trên trình duyệt." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:       #07090f;
+      --card:     #0f1623;
+      --hover:    #141d2e;
+      --glass:    rgba(15,22,35,0.9);
+      --accent:   #38bdf8;
+      --accent2:  #0ea5e9;
+      --indigo:   #6366f1;
+      --green:    #22c55e;
+      --green-d:  rgba(34,197,94,0.1);
+      --red-d:    rgba(239,68,68,0.08);
+      --border:   rgba(56,189,248,0.12);
+      --soft:     rgba(255,255,255,0.06);
+      --txt:      #e2e8f0;
+      --sub:      #94a3b8;
+      --muted:    #475569;
+      --r:        14px;
+      --rs:       10px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;display:flex;flex-direction:column;align-items:center}
+    body::before{content:'';position:fixed;top:0;left:0;right:0;height:350px;background:radial-gradient(ellipse 80% 40% at 50% 0%,rgba(56,189,248,0.06) 0%,transparent 70%);pointer-events:none;z-index:0}
+
+    /* Header */
+    header{width:100%;height:58px;padding:0 36px;display:flex;align-items:center;gap:11px;border-bottom:1px solid var(--soft);background:var(--glass);backdrop-filter:blur(16px);position:sticky;top:0;z-index:200}
+    .hlogo{width:30px;height:30px;background:linear-gradient(135deg,var(--accent2),var(--indigo));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px}
+    .htitle{font-size:.92rem;font-weight:600}
+    .hbadge{font-size:.68rem;padding:2px 9px;border:1px solid var(--border);border-radius:20px;color:var(--accent)}
+    .hsub{font-size:.74rem;color:var(--muted);margin-left:auto}
+
+    /* Main */
+    main{width:100%;max-width:860px;padding:44px 18px 100px;display:flex;flex-direction:column;gap:22px;position:relative;z-index:1}
+
+    /* Hero */
+    .hero{text-align:center;padding:4px 0 12px}
+    .hero h1{font-size:clamp(1.5rem,4vw,2.1rem);font-weight:700;background:linear-gradient(135deg,#e2e8f0 30%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.25;margin-bottom:8px}
+    .hero p{font-size:.85rem;color:var(--sub)}
+
+    /* Drop zone */
+    #dz{border:1.5px dashed rgba(56,189,248,.22);border-radius:var(--r);padding:52px 20px;text-align:center;cursor:pointer;background:var(--card);position:relative;overflow:hidden;transition:border-color .25s,background .25s,box-shadow .25s}
+    #dz::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(56,189,248,.05) 0%,transparent 70%);pointer-events:none}
+    #dz.over,#dz:hover{border-color:var(--accent);background:var(--hover);box-shadow:0 0 40px rgba(56,189,248,.07)}
+    #dz input{position:absolute;inset:0;opacity:0;cursor:pointer}
+    .dz-ico{font-size:2.6rem;margin-bottom:13px;display:block}
+    .dz-t{font-size:1rem;font-weight:600;margin-bottom:5px}
+    .dz-s{font-size:.78rem;color:var(--sub)}
+    .dz-btn{display:inline-block;margin-top:18px;padding:10px 24px;background:linear-gradient(135deg,var(--accent2),var(--indigo));border-radius:var(--rs);font-size:.83rem;font-weight:500;color:#fff;pointer-events:none;transition:opacity .2s}
+    #dz:hover .dz-btn{opacity:.85}
+
+    /* Loading */
+    #loading{display:none;align-items:center;justify-content:center;gap:12px;padding:40px;color:var(--sub);background:var(--card);border-radius:var(--r);border:1px solid var(--soft)}
+    #loading.show{display:flex}
+    .spin{width:21px;height:21px;border:2px solid rgba(56,189,248,.2);border-top-color:var(--accent);border-radius:50%;animation:spin .75s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* Stats */
+    #stats{display:none;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:11px}
+    #stats.show{display:grid}
+    .sc{background:var(--card);border:1px solid var(--soft);border-radius:var(--rs);padding:16px 14px;text-align:center;transition:transform .2s,border-color .2s}
+    .sc:hover{transform:translateY(-2px);border-color:var(--border)}
+    .sn{font-size:1.8rem;font-weight:700;color:var(--accent);line-height:1}
+    .sl{font-size:.7rem;color:var(--muted);margin-top:5px;text-transform:uppercase;letter-spacing:.05em}
+
+    /* Toolbar */
+    #toolbar{display:none;align-items:center;gap:9px;flex-wrap:wrap}
+    #toolbar.show{display:flex}
+    #search{flex:1;min-width:175px;background:var(--card);border:1px solid var(--soft);border-radius:var(--rs);padding:9px 13px;color:var(--txt);font-size:.83rem;font-family:inherit;outline:none;transition:border-color .2s}
+    #search:focus{border-color:var(--accent)}
+    #search::placeholder{color:var(--muted)}
+    .fb{padding:9px 13px;border-radius:var(--rs);border:1px solid var(--soft);background:var(--card);color:var(--sub);font-size:.76rem;cursor:pointer;font-family:inherit;transition:border-color .2s,color .2s,background .2s}
+    .fb.on,.fb:hover{border-color:var(--accent);color:var(--accent);background:rgba(56,189,248,.1)}
+    #exp-btn{padding:9px 15px;border:none;border-radius:var(--rs);background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.76rem;font-weight:600;font-family:inherit;cursor:pointer;transition:opacity .2s}
+    #exp-btn:hover{opacity:.85}
+
+    /* Section label */
+    .section-label{padding:6px 14px;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.8rem;font-weight:600;color:var(--accent);letter-spacing:.04em}
+
+    /* Cards */
+    #qlist{display:flex;flex-direction:column;gap:11px}
+    .qcard{background:var(--card);border:1px solid var(--soft);border-radius:var(--r);overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s;animation:up .3s ease both}
+    @keyframes up{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+    .qcard:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(0,0,0,.3)}
+    .qcard.open{border-color:rgba(56,189,248,.2)}
+
+    .qhdr{display:flex;align-items:center;gap:11px;padding:13px 17px;cursor:pointer;user-select:none;transition:background .2s}
+    .qhdr:hover{background:rgba(255,255,255,.02)}
+    .qnum{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent2),var(--indigo));display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700}
+    .qtxt{flex:1;font-size:.87rem;font-weight:500;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .qcard.open .qtxt{-webkit-line-clamp:unset;overflow:visible}
+    .qtag{flex-shrink:0;font-size:.66rem;color:var(--muted);border:1px solid var(--soft);border-radius:4px;padding:2px 6px}
+    .qans{flex-shrink:0;font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--green-d);border:1px solid rgba(34,197,94,.25);color:var(--green)}
+    .qans.truefalse{background:rgba(99,102,241,.12);border-color:rgba(99,102,241,.3);color:#a5b4fc}
+    .qtgl{flex-shrink:0;color:var(--muted);font-size:.68rem;transition:transform .25s}
+    .qcard.open .qtgl{transform:rotate(180deg)}
+
+    /* Body */
+    .qbody{display:none;flex-direction:column;gap:7px;padding:3px 17px 17px}
+    .qcard.open .qbody{display:flex}
+
+    /* PART I – A/B/C/D choices */
+    .choices{display:flex;flex-direction:column;gap:5px}
+    .choice{display:flex;align-items:flex-start;gap:9px;padding:9px 13px;border-radius:var(--rs);border:1px solid transparent;font-size:.84rem;transition:background .2s,border-color .2s}
+    .choice.ok{background:var(--green-d);border-color:rgba(34,197,94,.25)}
+    .choice:not(.ok):hover{background:var(--hover);border-color:var(--soft)}
+    .ck{font-weight:700;color:var(--accent);flex-shrink:0;min-width:17px}
+    .choice.ok .ck{color:var(--green)}
+    .cv{flex:1;line-height:1.5}
+    .cbadge{flex-shrink:0;font-size:.66rem;font-weight:600;color:var(--green);background:rgba(34,197,94,.14);padding:2px 8px;border-radius:10px;margin-left:auto}
+
+    /* PART II – true/false statements */
+    .tf-grid{display:flex;flex-direction:column;gap:5px}
+    .tf-row{display:flex;align-items:flex-start;gap:10px;padding:9px 13px;border-radius:var(--rs);border:1px solid transparent;font-size:.84rem;transition:background .2s,border-color .2s}
+    .tf-row:hover{background:var(--hover);border-color:var(--soft)}
+    .tf-key{font-weight:700;flex-shrink:0;min-width:20px;color:var(--accent)}
+    .tf-val{flex:1;line-height:1.55}
+    .tf-badge{flex-shrink:0;font-size:.66rem;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:auto}
+    .tf-badge.dung{background:rgba(34,197,94,.14);color:var(--green);border:1px solid rgba(34,197,94,.25)}
+    .tf-badge.sai{background:rgba(239,68,68,.12);color:#fca5a5;border:1px solid rgba(239,68,68,.25)}
+
+    /* Solution */
+    .sol{margin-top:4px;padding:11px 15px;background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.18);border-radius:var(--rs);font-size:.81rem;color:#a5b4fc;line-height:1.7}
+    .sol strong{color:#c7d2fe}
+
+    /* No choices */
+    .noc{font-size:.78rem;color:var(--muted);padding:6px 0;font-style:italic}
+
+    /* Error box */
+    .errbox{background:var(--red-d);border:1px solid rgba(239,68,68,.25);border-radius:var(--r);padding:22px 18px;text-align:center;color:#fca5a5;font-size:.87rem;line-height:1.6}
+
+    /* Empty */
+    #empty{display:none;text-align:center;padding:56px 20px;color:var(--muted)}
+    #empty.show{display:block}
+    .eico{font-size:2.8rem;margin-bottom:11px}
+
+    /* Scrollbar */
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:#1e293b;border-radius:3px}
+
+    @media(max-width:600px){header{padding:0 14px}main{padding:26px 11px 80px}}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="hlogo">📄</div>
+  <span class="htitle">Quiz Extractor</span>
+  <span class="hbadge">v2.0</span>
+  <span class="hsub">100% offline · hỗ trợ toán học</span>
+</header>
+
+<main>
+  <div class="hero">
+    <h1>Trích xuất đề thi từ Word</h1>
+    <p>Kéo file <code>.docx</code> vào – câu hỏi, đáp án và lời giải hiện ngay tức thì.</p>
+  </div>
+
+  <!-- Drop zone -->
+  <div id="dz" role="button" aria-label="Tải file .docx">
+    <span class="dz-ico">📂</span>
+    <p class="dz-t">Kéo thả file <code>.docx</code> vào đây</p>
+    <p class="dz-s">Microsoft Word 2007+ · Đọc trực tiếp trong trình duyệt</p>
+    <span class="dz-btn">Chọn file từ máy tính</span>
+    <input type="file" id="file-input" accept=".docx" />
+  </div>
+
+  <div id="loading"><div class="spin"></div><span>Đang phân tích cấu trúc đề thi...</span></div>
+
+  <!-- Stats -->
+  <div id="stats">
+    <div class="sc"><div class="sn" id="s-total">0</div><div class="sl">Tổng câu hỏi</div></div>
+    <div class="sc"><div class="sn" id="s-p1">0</div><div class="sl">Phần I (ABCD)</div></div>
+    <div class="sc"><div class="sn" id="s-p2">0</div><div class="sl">Phần II (Đúng/Sai)</div></div>
+    <div class="sc"><div class="sn" id="s-p3">0</div><div class="sl">Phần III (Trả lời ngắn)</div></div>
+    <div class="sc"><div class="sn" id="s-ans">0</div><div class="sl">Có đáp án</div></div>
+  </div>
+
+  <!-- Toolbar -->
+  <div id="toolbar">
+    <input type="text" id="search" placeholder="🔍  Tìm kiếm câu hỏi..." />
+    <button class="fb on" data-f="all">Tất cả</button>
+    <button class="fb" data-f="p1">Phần I</button>
+    <button class="fb" data-f="p2">Phần II</button>
+    <button class="fb" data-f="p3">Phần III</button>
+    <button id="exp-btn">⬇ JSON</button>
+  </div>
+
+  <div id="qlist" role="list"></div>
+  <div id="empty"><div class="eico">🔍</div><p>Không tìm thấy câu hỏi phù hợp.</p></div>
+</main>
+
+<script>
+/* ══════════════════════════════════════════════
+   CORE XML PARSER & ZIP UTILS WITH IMAGE SUPPORT
+   ══════════════════════════════════════════════ */
+
+/* ── XML helpers ── */
+function getParas(xml) {
+  return [...xml.matchAll(/<w:p[ >][\s\S]*?<\/w:p>/g)].map(m => m[0]);
+}
+
+function parseOMathElement(elem) {
+  const tag = elem.localName;
+  
+  if (tag === 'oMath') {
+    return Array.from(elem.children).map(parseOMathElement).join('');
+  } else if (tag === 'r') {
+    const tNodes = elem.getElementsByTagNameNS('*', 't');
+    return Array.from(tNodes).map(t => t.textContent || '').join('');
+  } else if (tag === 'd') {
+    let beg = '(';
+    let end = ')';
+    const dPr = Array.from(elem.children).find(c => c.localName === 'dPr');
+    if (dPr) {
+      const begChr = Array.from(dPr.children).find(c => c.localName === 'begChr');
+      if (begChr) {
+        beg = begChr.getAttribute('m:val') || begChr.getAttribute('val') || '(';
+      }
+      const endChr = Array.from(dPr.children).find(c => c.localName === 'endChr');
+      if (endChr) {
+        end = endChr.getAttribute('m:val') || endChr.getAttribute('val') || ')';
+      }
+    }
+    const e = Array.from(elem.children).find(c => c.localName === 'e');
+    const inner = e ? parseOMathElement(e) : '';
+    return beg + inner + end;
+  } else if (tag === 'acc') {
+    let accentChar = '⃗';
+    const accPr = Array.from(elem.children).find(c => c.localName === 'accPr');
+    if (accPr) {
+      const chr = Array.from(accPr.children).find(c => c.localName === 'chr');
+      if (chr) {
+        accentChar = chr.getAttribute('m:val') || chr.getAttribute('val') || '⃗';
+      }
+    }
+    const e = Array.from(elem.children).find(c => c.localName === 'e');
+    const inner = e ? parseOMathElement(e) : '';
+    
+    if (accentChar === '⃗' || accentChar === '\u20d7' || accentChar === '→') {
+      return `\\vec{${inner}}`;
+    } else if (accentChar === '^' || accentChar === '̂') {
+      return Array.from(inner).map(c => /[a-zA-Z]/.test(c) ? c + '\u0302' : c).join('');
+    }
+    return inner;
+  } else if (tag === 'f') {
+    const numNode = Array.from(elem.children).find(c => c.localName === 'num');
+    const denNode = Array.from(elem.children).find(c => c.localName === 'den');
+    const num = numNode ? parseOMathElement(numNode) : '';
+    const den = denNode ? parseOMathElement(denNode) : '';
+    return `\\frac{${num}}{${den}}`;
+  } else if (tag === 'limLow') {
+    const eNode = Array.from(elem.children).find(c => c.localName === 'e');
+    const limNode = Array.from(elem.children).find(c => c.localName === 'lim');
+    const base = eNode ? parseOMathElement(eNode) : '';
+    const limit = limNode ? parseOMathElement(limNode) : '';
+    return `${base}_{${limit}}`;
+  } else if (tag === 'sSub' || tag === 'sSup' || tag === 'sSubSup') {
+    const eNode = Array.from(elem.children).find(c => c.localName === 'e');
+    const subNode = Array.from(elem.children).find(c => c.localName === 'sub');
+    const supNode = Array.from(elem.children).find(c => c.localName === 'sup');
+    
+    const base = eNode ? parseOMathElement(eNode) : '';
+    const sub = subNode ? parseOMathElement(subNode) : '';
+    const sup = supNode ? parseOMathElement(supNode) : '';
+    
+    let res = base;
+    if (sub) res += `_${sub}`;
+    if (sup) res += `^${sup}`;
+    return res;
+  } else if (tag === 'nary') {
+    const subNode = Array.from(elem.children).find(c => c.localName === 'sub');
+    const supNode = Array.from(elem.children).find(c => c.localName === 'sup');
+    const eNode = Array.from(elem.children).find(c => c.localName === 'e');
+    
+    const sub = subNode ? parseOMathElement(subNode) : '';
+    const sup = supNode ? parseOMathElement(supNode) : '';
+    const inner = eNode ? parseOMathElement(eNode) : '';
+    
+    return `\\int_{${sub}}^{${sup}} ${inner}`;
+  } else if (tag === 'bar') {
+    const eNode = Array.from(elem.children).find(c => c.localName === 'e');
+    const inner = eNode ? parseOMathElement(eNode) : '';
+    return `\\bar{${inner}}`;
+  } else {
+    return Array.from(elem.children).map(parseOMathElement).join('');
+  }
+}
+
+function getText(para, includeTab = false) {
+  const parts = [];
+  const tokenRe = /<w:r[ >][\s\S]*?<\/w:r>|<m:oMath>[\s\S]*?<\/m:oMath>/g;
+  let m;
+  const parser = new DOMParser();
+  
+  while ((m = tokenRe.exec(para)) !== null) {
+    const tok = m[0];
+    if (tok.startsWith('<w:r')) {
+      if (includeTab && /<w:tab\/>/.test(tok)) parts.push('\t');
+      const ts = [...tok.matchAll(/<w:t[^>]*>([\s\S]*?)<\/w:t>/g)].map(x => x[1]);
+      parts.push(...ts);
+    } else {
+      try {
+        const wrapXml = `<oMath xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">${tok}</oMath>`;
+        const doc = parser.parseFromString(wrapXml, 'application/xml');
+        const root = doc.documentElement;
+        parts.push(parseOMathElement(root));
+      } catch (e) {
+        const mt = [...tok.matchAll(/<m:t[^>]*>([\s\S]*?)<\/m:t>/g)].map(x => x[1]);
+        if (mt.length) parts.push(mt.join(''));
+      }
+    }
+  }
+  return parts.join('');
+}
+
+function getColor(para) {
+  const m = para.match(/<w:color w:val="([^"]+)"/);
+  return m ? m[1].toUpperCase() : '';
+}
+
+function getHighlight(para) {
+  const m = para.match(/<w:highlight w:val="([^"]+)"/);
+  return m ? m[1] : '';
+}
+
+function getImagesInPara(para, relMap, imageBase64Map) {
+  const rids = [];
+  const embedRe = /embed="([^"]+)"/g;
+  const idRe = /r:id="([^"]+)"/g;
+  let m;
+  while ((m = embedRe.exec(para)) !== null) rids.push(m[1]);
+  while ((m = idRe.exec(para)) !== null) rids.push(m[1]);
+
+  const imgs = [];
+  for (const rid of rids) {
+    const target = relMap[rid];
+    if (target && imageBase64Map[target]) {
+      imgs.push(imageBase64Map[target]);
+    }
+  }
+  return imgs;
+}
+
+/* ── Choice parser ── */
+function parseChoices(raw) {
+  const tabParts = raw.split('\t').map(s => s.trim()).filter(Boolean);
+  const choices = [];
+
+  for (const part of tabParts) {
+    const innerRe = /\b([A-D])\.\s*(.*?)(?=\s+\b[A-D]\.\s|$)/g;
+    let cm;
+    while ((cm = innerRe.exec(part)) !== null) {
+      const text = cm[2].replace(/\s+/g, ' ').trim().replace(/\.\s*$/, '').trim();
+      if (cm[1] && !choices.find(c => c.key === cm[1])) {
+        choices.push({ key: cm[1], text });
+      }
+    }
+  }
+
+  if (choices.length < 2) {
+    choices.length = 0;
+    const re = /\b([A-D])\.\s*(.*?)(?=\s+\b[A-D]\.\s|$)/g;
+    let cm;
+    while ((cm = re.exec(raw)) !== null) {
+      const text = cm[2].replace(/\s+/g, ' ').trim().replace(/\.\s*$/, '').trim();
+      if (text && !choices.find(c => c.key === cm[1])) {
+        choices.push({ key: cm[1], text });
+      }
+    }
+  }
+
+  choices.sort((a, b) => a.key.charCodeAt(0) - b.key.charCodeAt(0));
+  return choices;
+}
+
+/* ── Answer parser ── */
+function parseAnswer(text, section = 'I') {
+  const m = text.match(/(?:Lời\s+giải|Trả\s+lời|Đáp\s+án)\s*[:\-]?\s*(.+)/i);
+  if (!m) return null;
+  const raw = m[1].trim();
+  
+  if (section === 'III') {
+    const numM = raw.match(/^(-?\d+(?:[.,]\d+)?)(.*)/);
+    if (numM) {
+      return { type: 'short', val: numM[1].trim(), rest: numM[2].trim() };
+    }
+    return { type: 'short', val: raw, rest: '' };
+  }
+  
+  if (/^[A-D]$/i.test(raw)) return { type: 'abcd', val: raw.toUpperCase() };
+  if (/[SĐ]/.test(raw)) {
+    const vals = raw.split(/[-–]/).map(s => s.trim()).filter(Boolean);
+    return { type: 'tf', vals };
+  }
+  return { type: 'abcd', val: raw.toUpperCase() };
+}
+
+/* ══════════════════════════════════════════════
+   MAIN DOCX PARSER WITH RELATIONSHIPS
+   ══════════════════════════════════════════════ */
+function parseFromXml(xml, relMap = {}, imageBase64Map = {}) {
+  const paras = getParas(xml);
+  const questions = [];
+
+  const classified = paras.map(p => {
+    const hl    = getHighlight(p);
+    const color = getColor(p);
+    const rawText = getText(p, true);
+    const text    = getText(p, false);
+    
+    let type = 'other';
+    if (hl === 'yellow' || /^\s*(?:Lời\s+giải|Trả\s+lời|Đáp\s+án)/i.test(text))        type = 'answer';
+    else if (color === 'C00000') type = 'choices';
+    else if (/^\s*Câu\s+\d+/i.test(text) || (color === '0000FF' && /Câu\s+\d+/i.test(text))) type = 'question';
+    
+    return { type, rawText, text, para: p };
+  });
+
+  let i = 0;
+  let currentSection = 'I';
+
+  while (i < classified.length) {
+    const item = classified[i];
+
+    if (/Phần\s+III/i.test(item.text) && !/Câu\s+\d+/i.test(item.text)) {
+      currentSection = 'III';
+      i++; continue;
+    }
+    if (/Phần\s+II/i.test(item.text) && !/Câu\s+\d+/i.test(item.text)) {
+      currentSection = 'II';
+      i++; continue;
+    }
+    if (/Phần/i.test(item.text) && !/^\s*Câu\s+\d+/i.test(item.text)) {
+      i++; continue;
+    }
+
+    if (item.type === 'question' && /^\s*Câu\s+\d+/i.test(item.text)) {
+      const numM = item.text.match(/Câu\s+(\d+)/i);
+      const num  = numM ? parseInt(numM[1]) : 0;
+
+      const tagM = item.text.match(/\[([^\]]+)\]/);
+      const tag  = tagM ? tagM[1] : null;
+
+      let qtext = item.text
+        .replace(/^\s*Câu\s+\d+[\s.:]+/i, '')
+        .replace(/^\[[^\]]+\]\s*/, '')
+        .trim();
+
+      if (!qtext || /^Phần/i.test(qtext)) { i++; continue; }
+
+      const block = { 
+        num, 
+        tag, 
+        section: currentSection, 
+        qtext, 
+        choices: [], 
+        answer: null, 
+        solution: [], 
+        tfStatements: [],
+        images: getImagesInPara(item.para, relMap, imageBase64Map),
+        sol_images: []
+      };
+
+      i++;
+      while (i < classified.length) {
+        const cur = classified[i];
+
+        if (/Phần\s+(?:II|III)/i.test(cur.text)) break;
+        if (cur.type === 'question' && /^\s*Câu\s+\d+/i.test(cur.text)) break;
+
+        // Check for images and map them based on answer state
+        const pImages = getImagesInPara(cur.para, relMap, imageBase64Map);
+        if (block.answer === null) {
+          block.images.push(...pImages);
+        } else {
+          block.sol_images.push(...pImages);
+        }
+
+        if (cur.type === 'choices') {
+          const parsed = parseChoices(cur.rawText);
+          for (const c of parsed) {
+            if (!block.choices.find(x => x.key === c.key)) block.choices.push(c);
+          }
+        } else if (cur.type === 'answer') {
+          const ansObj = parseAnswer(cur.text, currentSection);
+          if (ansObj) {
+            if (ansObj.rest) {
+              block.answer = { type: ansObj.type, val: ansObj.val };
+              block.solution.push(ansObj.rest);
+            } else {
+              block.answer = ansObj;
+            }
+          }
+        } else if (cur.type === 'other' && cur.text.trim()) {
+          const t = cur.text.trim();
+          if (currentSection === 'II' && block.answer === null) {
+            const stmtM = t.match(/^([a-d])\)\s*(.+)/i);
+            const hasNumPr = cur.para.includes('<w:numPr>');
+            
+            if (stmtM) {
+              block.tfStatements.push({ key: stmtM[1].toLowerCase(), text: stmtM[2].trim() });
+            } else if (hasNumPr || block.tfStatements.length === 0) {
+              const key = String.fromCharCode(97 + block.tfStatements.length);
+              block.tfStatements.push({ key: key, text: t });
+            } else {
+              block.tfStatements[block.tfStatements.length - 1].text += " " + t;
+            }
+          } else if (block.answer === null) {
+            block.qtext += " " + t;
+          } else {
+            block.solution.push(t);
+          }
+        }
+        i++;
+      }
+
+      block.images = [...new Set(block.images)];
+      block.sol_images = [...new Set(block.sol_images)];
+      questions.push(block);
+    } else {
+      i++;
+    }
+  }
+
+  return questions;
+}
+
+/* ══════════════════════════════════════════════
+   STATE & RENDER
+   ══════════════════════════════════════════════ */
+let allQ = [], filter = 'all', query = '';
+
+function renderAll() {
+  const list  = document.getElementById('qlist');
+  const empty = document.getElementById('empty');
+  list.innerHTML = '';
+
+  let lastSection = null;
+  const visible = allQ.filter(q => {
+    if (filter === 'p1' && q.section !== 'I')  return false;
+    if (filter === 'p2' && q.section !== 'II') return false;
+    if (filter === 'p3' && q.section !== 'III') return false;
+    if (query) {
+      const s = query.toLowerCase();
+      if (!q.qtext.toLowerCase().includes(s) &&
+          !q.choices.some(c => c.text.toLowerCase().includes(s)) &&
+          !q.tfStatements.some(t => t.text.toLowerCase().includes(s))) return false;
+    }
+    return true;
+  });
+
+  if (!visible.length) { empty.classList.add('show'); return; }
+  empty.classList.remove('show');
+
+  visible.forEach((q, idx) => {
+    if (q.section !== lastSection) {
+      const lbl = document.createElement('div');
+      lbl.className = 'section-label';
+      let sectionTitle = '';
+      if (q.section === 'I') sectionTitle = 'PHẦN I – Trắc nghiệm nhiều phương án (A/B/C/D)';
+      else if (q.section === 'II') sectionTitle = 'PHẦN II – Trắc nghiệm đúng / sai';
+      else if (q.section === 'III') sectionTitle = 'PHẦN III – Trắc nghiệm trả lời ngắn';
+      lbl.textContent = sectionTitle;
+      list.appendChild(lbl);
+      lastSection = q.section;
+    }
+    list.appendChild(buildCard(q, idx));
+  });
+}
+
+function renderMathText(text) {
+  if (!text) return '';
+  let res = text.replace(/\\sqrt\[([^\]]+)\]\{([^}]+)\}/g, (match, deg, baseText) => {
+    return `<span class="inline-sqrt" style="display: inline-flex; align-items: center; vertical-align: middle; margin: 0 2px;">
+      <sup style="font-size: 0.6em; font-weight: bold; margin-right: -0.3em; z-index: 10; transform: translateY(-0.25em);">${deg}</sup>
+      <span style="font-size: 1.25em; font-family: serif; line-height: 1; margin-right: -0.05em; transform: scaleY(1.05) translateY(-0.02em);">√</span>
+      <span style="border-top: 1px solid currentColor; padding: 0 2px; font-size: 0.95em; line-height: 1.1; padding-top: 1px;">${renderMathText(baseText)}</span>
+    </span>`;
+  });
+  res = res.replace(/\\sqrt\{([^}]+)\}/g, (match, baseText) => {
+    return `<span class="inline-sqrt" style="display: inline-flex; align-items: center; vertical-align: middle; margin: 0 2px;">
+      <span style="font-size: 1.25em; font-family: serif; line-height: 1; margin-right: -0.05em; transform: scaleY(1.05) translateY(-0.02em);">√</span>
+      <span style="border-top: 1px solid currentColor; padding: 0 2px; font-size: 0.95em; line-height: 1.1; padding-top: 1px;">${renderMathText(baseText)}</span>
+    </span>`;
+  });
+  res = res.replace(/\\vec\{([^}]+)\}/g, (match, baseText) => {
+    return `<span class="inline-vec" style="position: relative; display: inline-block; padding: 0 2px;">
+      <span style="position: absolute; top: -0.4em; left: 0; right: 0; text-align: center; font-size: 0.65em; font-weight: normal; pointer-events: none; user-select: none; line-height: 1;">→</span>
+      <span style="font-style: italic; font-weight: 600;">${renderMathText(baseText)}</span>
+    </span>`;
+  });
+  res = res.replace(/\\int_\{([^}]+)\}\^\{([^}]+)\}/g, (match, lower, upper) => {
+    return `<span class="inline-int" style="display: inline-flex; align-items: center; margin: 0 4px; font-weight: normal; vertical-align: middle;">
+      <span style="font-size: 1.45em; line-height: 1; font-style: italic; font-family: serif; user-select: none; margin-right: -0.05em; transform: scaleY(1.2);">∫</span>
+      <span style="display: inline-flex; flex-direction: column; justify-content: space-between; font-size: 0.62em; line-height: 1; height: 1.9em; margin-right: 0.12em; transform: translateY(-0.06em);">
+        <span style="font-weight: 800; color: #a1a1aa; margin-bottom: 0.2em;">${upper}</span>
+        <span style="font-weight: 800; color: #a1a1aa;">${lower}</span>
+      </span>
+    </span>`;
+  });
+  res = res.replace(/\\bar\{([^}]+)\}/g, (match, baseText) => {
+    return `<span class="inline-bar" style="display: inline-block; position: relative; border-top: 1.5px solid currentColor; line-height: 1.1; padding-top: 1px; margin-top: -0.15em; vertical-align: middle; padding-left: 2px; padding-right: 2px;">
+      <span style="font-style: italic; font-weight: 600;">${renderMathText(baseText)}</span>
+    </span>`;
+  });
+  res = res.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, (match, num, den) => {
+    return `<span class="inline-frac" style="display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 2px; line-height: 1.1;">
+      <span style="border-bottom: 1.5px solid currentColor; padding: 0 4px 1px 4px; font-size: 0.9em; font-weight: 600;">${renderMathText(num)}</span>
+      <span style="padding-top: 1px; font-size: 0.9em; font-weight: 600;">${renderMathText(den)}</span>
+    </span>`;
+  });
+  res = res.replace(/([a-zA-Z]+)_\{([^}]+)\}/g, (match, base, sub) => {
+    return `<span class="inline-sub" style="display: inline-block; margin-right: 2px;"><span style="font-style: italic; font-weight: 600;">${base}</span><sub style="font-size: 0.75em; font-weight: 600; color: #71717a; vertical-align: sub; margin-left: 1px;">${sub}</sub></span>`;
+  });
+  // Simple subscript without braces: x_1, x_2, ΔQ_K10
+  res = res.replace(/([a-zA-ZΔ]+)_([0-9a-zA-Z']+)/g, (match, base, sub) => {
+    return `<span class="inline-sub" style="display: inline-block; margin-right: 2px;"><span style="font-style: italic; font-weight: 600;">${base}</span><sub style="font-size: 0.75em; font-weight: 600; color: #71717a; vertical-align: sub; margin-left: 1px;">${sub}</sub></span>`;
+  });
+  res = res.replace(/([\[\{])&([^.]+)\./g, (match, delim, eqsText) => {
+    const eqs = eqsText.split('&');
+    const eqRows = eqs.map(eq => `<span style="display: block; white-space: nowrap;">${renderMathText(eq)}</span>`).join('');
+    return `<span class="inline-system" style="display: inline-flex; align-items: center; vertical-align: middle; margin: 0 4px;">
+      <span style="font-size: 1.8em; font-weight: 100; transform: scaleY(1.25); margin-right: 2px; user-select: none;">${delim}</span>
+      <span style="display: inline-flex; flex-direction: column; text-align: left; font-size: 0.9em; line-height: 1.25;">
+        ${eqRows}
+      </span>
+    </span>`;
+  });
+  // Embedded Word table \table{<html>}
+  res = res.replace(/\\table\{([\s\S]*?)\}/g, (match, html) => {
+    return `<div class="word-table-wrap" style="overflow-x:auto;margin:8px 0;">${html}<style>.word-table{border-collapse:collapse;width:100%;font-size:0.88em;}.word-table td{border:1px solid #d1c4b8;padding:4px 8px;text-align:center;white-space:nowrap;}.word-table tr:first-child td{background:#f5ede9;font-weight:700;color:#7c3f2a;}</style></div>`;
+  });
+  // Superscript: \^{content} or ^word/digits/prime
+  res = res.replace(/\^\{([^}]+)\}/g, (match, exp) => {
+    return `<sup style="font-size:0.72em;font-weight:600;line-height:0;vertical-align:super;">${renderMathText(exp)}</sup>`;
+  });
+  // Match superscript primes first
+  res = res.replace(/\^(['′]+)/g, (match, primes) => {
+    return `<sup style="font-size:0.72em;font-weight:600;line-height:0;vertical-align:super;">${primes}</sup>`;
+  });
+  // Match digits or single letters or negative numbers
+  res = res.replace(/\^(-?[0-9]+|-[a-zA-Z]|[a-zA-Z](?![a-zA-Z]))/g, (match, exp) => {
+    return `<sup style="font-size:0.72em;font-weight:600;line-height:0;vertical-align:super;">${exp}</sup>`;
+  });
+  return res;
+}
+
+function buildCard(q, idx) {
+  const card = document.createElement('article');
+  card.className = 'qcard';
+  card.setAttribute('role', 'listitem');
+  card.style.animationDelay = `${Math.min(idx * 22, 280)}ms`;
+ 
+  let ansBadge = '';
+  if (q.answer) {
+    if (q.answer.type === 'abcd') {
+      ansBadge = `<span class="qans">✓ ${esc(q.answer.val)}</span>`;
+    } else if (q.answer.type === 'short') {
+      ansBadge = `<span class="qans" style="background: rgba(14, 165, 233, 0.12); border-color: rgba(14, 165, 233, 0.3); color: #38bdf8;">✓ ${esc(q.answer.val)}</span>`;
+    } else {
+      const display = q.answer.vals ? q.answer.vals.join('-') : 'N/A';
+      ansBadge = `<span class="qans truefalse">${esc(display)}</span>`;
+    }
+  }
+ 
+  const hdr = document.createElement('div');
+  hdr.className = 'qhdr';
+  hdr.setAttribute('aria-expanded', 'false');
+  hdr.innerHTML = `
+    <div class="qnum">${q.num}</div>
+    <div class="qtxt">${renderMathText(esc(q.qtext))}</div>
+    ${q.tag ? `<span class="qtag">${esc(q.tag)}</span>` : ''}
+    ${ansBadge}
+    <span class="qtgl">▼</span>
+  `;
+  hdr.addEventListener('click', () => {
+    const open = card.classList.toggle('open');
+    hdr.setAttribute('aria-expanded', open);
+  });
+
+  const body = document.createElement('div');
+  body.className = 'qbody';
+
+  // Render question images if they exist
+  if (q.images && q.images.length > 0) {
+    const imgContainer = document.createElement('div');
+    imgContainer.style.display = 'flex';
+    imgContainer.style.flexDirection = 'column';
+    imgContainer.style.gap = '9px';
+    imgContainer.style.margin = '11px 0';
+    q.images.forEach(imgDataUrl => {
+      const img = document.createElement('img');
+      img.src = imgDataUrl;
+      img.style.maxWidth = '100%';
+      img.style.maxHeight = '350px';
+      img.style.height = 'auto';
+      img.style.objectFit = 'contain';
+      img.style.borderRadius = 'var(--rs)';
+      img.style.border = '1px solid var(--soft)';
+      img.style.backgroundColor = '#ffffff'; // Nền trắng đồng bộ cho đồ thị
+      img.style.padding = '8px'; // Khoảng cách đệm xung quanh ảnh
+      imgContainer.appendChild(img);
+    });
+    body.appendChild(imgContainer);
+  }
+
+  if (q.section === 'I') {
+    if (q.choices.length) {
+      const grid = document.createElement('div');
+      grid.className = 'choices';
+      q.choices.forEach(c => {
+        const isOk = q.answer?.type === 'abcd' && c.key === q.answer.val;
+        const div  = document.createElement('div');
+        div.className = `choice${isOk ? ' ok' : ''}`;
+        div.innerHTML = `
+          <span class="ck">${c.key}.</span>
+          <span class="cv">${renderMathText(esc(c.text))}</span>
+          ${isOk ? '<span class="cbadge">✓ Đúng</span>' : ''}
+        `;
+        grid.appendChild(div);
+      });
+      body.appendChild(grid);
+    } else {
+      body.innerHTML += '<p class="noc">Lựa chọn A/B/C/D có chứa hình ảnh hoặc công thức phức tạp.</p>';
+    }
+  } else if (q.section === 'II') {
+    if (q.tfStatements.length) {
+      const grid = document.createElement('div');
+      grid.className = 'tf-grid';
+      const ansVals = q.answer?.type === 'tf' ? q.answer.vals : [];
+      q.tfStatements.forEach((st, si) => {
+        const verdict = ansVals[si] || '';
+        const isDung  = verdict === 'Đ';
+        const isSai   = verdict === 'S';
+        const div = document.createElement('div');
+        div.className = 'tf-row';
+        div.innerHTML = `
+          <span class="tf-key">${st.key})</span>
+          <span class="tf-val">${renderMathText(esc(st.text))}</span>
+          ${isDung ? '<span class="tf-badge dung">✓ Đúng</span>' : ''}
+          ${isSai  ? '<span class="tf-badge sai">✗ Sai</span>'   : ''}
+        `;
+        grid.appendChild(div);
+      });
+      body.appendChild(grid);
+    } else {
+      const stmtLines = q.solution.filter(s => /^[a-d]\)/i.test(s));
+      if (stmtLines.length) {
+        const grid = document.createElement('div');
+        grid.className = 'tf-grid';
+        const ansVals = q.answer?.type === 'tf' ? q.answer.vals : [];
+        stmtLines.forEach((line, si) => {
+          const m = line.match(/^([a-d])\)\s*(.*)/i);
+          if (!m) return;
+          const verdict = ansVals[si] || '';
+          const div = document.createElement('div');
+          div.className = 'tf-row';
+          div.innerHTML = `
+            <span class="tf-key">${m[1]})</span>
+            <span class="tf-val">${renderMathText(esc(m[2]))}</span>
+            ${verdict === 'Đ' ? '<span class="tf-badge dung">✓ Đúng</span>' : ''}
+            ${verdict === 'S' ? '<span class="tf-badge sai">✗ Sai</span>'   : ''}
+          `;
+          grid.appendChild(div);
+        });
+        body.appendChild(grid);
+      } else {
+        body.innerHTML += '<p class="noc">Mệnh đề đúng/sai nằm trong hình ảnh hoặc bảng.</p>';
+      }
+    }
+  } else if (q.section === 'III') {
+    const div = document.createElement('div');
+    div.style.padding = '12px 16px';
+    div.style.background = 'rgba(56, 189, 248, 0.05)';
+    div.style.border = '1px solid rgba(56, 189, 248, 0.15)';
+    div.style.borderRadius = 'var(--rs)';
+    div.style.fontSize = '0.86rem';
+    div.style.display = 'flex';
+    div.style.alignItems = 'center';
+    div.style.gap = '8px';
+    
+    const ansVal = q.answer?.type === 'short' ? q.answer.val : 'N/A';
+    div.innerHTML = `
+      <span style="font-weight: 700; color: #38bdf8;">Đáp án cần điền:</span>
+      <span style="font-family: monospace; font-weight: 700; font-size: 0.95rem; background: rgba(56, 189, 248, 0.12); padding: 2px 8px; border-radius: 4px; color: #e2e8f0;">${esc(ansVal)}</span>
+    `;
+    body.appendChild(div);
+  }
+
+  const solLines = q.solution.filter(s => s && !/^[a-d]\)/i.test(s)).slice(0, 25);
+  if (solLines.length || (q.sol_images && q.sol_images.length > 0)) {
+    const sol = document.createElement('div');
+    sol.className = 'sol';
+    sol.innerHTML = `<strong>💡 Lời giải:</strong> ${renderMathText(esc(solLines.join(' · ')))}`;
+    
+    if (q.sol_images && q.sol_images.length > 0) {
+      const solImgContainer = document.createElement('div');
+      solImgContainer.style.display = 'flex';
+      solImgContainer.style.flexDirection = 'column';
+      solImgContainer.style.gap = '9px';
+      solImgContainer.style.marginTop = '11px';
+      q.sol_images.forEach(imgDataUrl => {
+        const img = document.createElement('img');
+        img.src = imgDataUrl;
+        img.style.maxWidth = '100%';
+        img.style.maxHeight = '350px';
+        img.style.height = 'auto';
+        img.style.objectFit = 'contain';
+        img.style.borderRadius = 'var(--rs)';
+        img.style.border = '1px solid var(--soft)';
+        img.style.backgroundColor = '#ffffff'; // Nền trắng cho ảnh lời giải
+        img.style.padding = '8px';
+        solImgContainer.appendChild(img);
+      });
+      sol.appendChild(solImgContainer);
+    }
+    body.appendChild(sol);
+  }
+
+  card.appendChild(hdr);
+  card.appendChild(body);
+  return card;
+}
+
+function esc(s = '') {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function updateStats() {
+  const p1 = allQ.filter(q => q.section === 'I').length;
+  const p2 = allQ.filter(q => q.section === 'II').length;
+  const p3 = allQ.filter(q => q.section === 'III').length;
+  const an = allQ.filter(q => q.answer).length;
+  document.getElementById('s-total').textContent = allQ.length;
+  document.getElementById('s-p1').textContent    = p1;
+  document.getElementById('s-p2').textContent    = p2;
+  document.getElementById('s-p3').textContent    = p3;
+  document.getElementById('s-ans').textContent   = an;
+  document.getElementById('stats').classList.add('show');
+  document.getElementById('toolbar').classList.add('show');
+}
+
+/* ══════════════════════════════════════════════
+   FILE HANDLING – read zip and unpack media
+   ══════════════════════════════════════════════ */
+async function processFile(file) {
+  if (!file || !file.name.endsWith('.docx')) {
+    showErr('Chỉ hỗ trợ file <strong>.docx</strong>'); return;
+  }
+
+  document.getElementById('loading').classList.add('show');
+  document.getElementById('qlist').innerHTML = '';
+  document.getElementById('stats').classList.remove('show');
+  document.getElementById('toolbar').classList.remove('show');
+  document.getElementById('empty').classList.remove('show');
+  allQ = [];
+
+  try {
+    const ab  = await file.arrayBuffer();
+    const bytes = new Uint8Array(ab);
+    
+    // Decompress and unzip target documents and media
+    const { docXml, relsXml, mediaFiles } = await unzipAllMediaAndXml(bytes);
+    
+    // Map media name -> base64 string
+    const imageBase64Map = {};
+    for (const [name, imgBytes] of Object.entries(mediaFiles)) {
+      imageBase64Map[name] = bytesToBase64DataUrl(imgBytes, name);
+    }
+
+    // Parse relationship IDs
+    const relMap = {};
+    if (relsXml) {
+      const relRe = /<Relationship\s+([^>]+)\/>/g;
+      let rm;
+      while ((rm = relRe.exec(relsXml)) !== null) {
+        const rel = rm[1];
+        const idM = rel.match(/Id="([^"]+)"/);
+        const targetM = rel.match(/Target="([^"]+)"/);
+        const typeM = rel.match(/Type="([^"]+)"/);
+        if (idM && targetM && typeM && typeM[1].includes('relationships/image')) {
+          let target = targetM[1];
+          if (!target.startsWith('word/')) {
+            target = 'word/' + target;
+          }
+          relMap[idM[1]] = target;
+        }
+      }
+    }
+
+    allQ = parseFromXml(docXml, relMap, imageBase64Map);
+
+    document.getElementById('loading').classList.remove('show');
+    if (!allQ.length) { showErr('Không tìm thấy câu hỏi nào. Kiểm tra định dạng: câu hỏi phải có màu xanh, đáp án highlight vàng.'); return; }
+    updateStats();
+    renderAll();
+  } catch(e) {
+    document.getElementById('loading').classList.remove('show');
+    showErr('Lỗi: ' + e.message);
+  }
+}
+
+async function unzipAllMediaAndXml(bytes) {
+  const sig = [0x50, 0x4b, 0x03, 0x04];
+  const decoder = new TextDecoder('utf-8');
+  let pos = 0;
+  
+  let docXml = '';
+  let relsXml = '';
+  const mediaFiles = {};
+
+  while (pos < bytes.length - 30) {
+    if (bytes[pos]   !== sig[0] || bytes[pos+1] !== sig[1] ||
+        bytes[pos+2] !== sig[2] || bytes[pos+3] !== sig[3]) {
+      pos++; continue;
+    }
+
+    const compression  = bytes[pos+8]  | (bytes[pos+9]  << 8);
+    const compSize     = bytes[pos+18] | (bytes[pos+19] << 8) | (bytes[pos+20] << 16) | (bytes[pos+21] << 24);
+    const uncompSize   = bytes[pos+22] | (bytes[pos+23] << 8) | (bytes[pos+24] << 16) | (bytes[pos+25] << 24);
+    const nameLen      = bytes[pos+26] | (bytes[pos+27] << 8);
+    const extraLen     = bytes[pos+28] | (bytes[pos+29] << 8);
+
+    const nameBytes = bytes.slice(pos+30, pos+30+nameLen);
+    const name      = decoder.decode(nameBytes);
+    const dataStart = pos + 30 + nameLen + extraLen;
+    const dataEnd   = dataStart + compSize;
+
+    if (name === 'word/document.xml') {
+      const compData = bytes.slice(dataStart, dataEnd);
+      docXml = compression === 0 ? decoder.decode(compData) : await decompressDeflate(compData, uncompSize);
+    } else if (name === 'word/_rels/document.xml.rels') {
+      const compData = bytes.slice(dataStart, dataEnd);
+      relsXml = compression === 0 ? decoder.decode(compData) : await decompressDeflate(compData, uncompSize);
+    } else if (name.startsWith('word/media/')) {
+      const compData = bytes.slice(dataStart, dataEnd);
+      let decompressed;
+      if (compression === 0) {
+        decompressed = compData;
+      } else if (compression === 8) {
+        decompressed = await decompressDeflateToBytes(compData);
+      }
+      if (decompressed) {
+        mediaFiles[name] = decompressed;
+      }
+    }
+
+    pos = dataEnd;
+  }
+  return { docXml, relsXml, mediaFiles };
+}
+
+async function decompressDeflateToBytes(compData) {
+  const stream = new DecompressionStream('deflate-raw');
+  const writer = stream.writable.getWriter();
+  writer.write(compData);
+  writer.close();
+
+  const chunks = [];
+  const reader = stream.readable.getReader();
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+  }
+
+  const total  = chunks.reduce((s, c) => s + c.length, 0);
+  const merged = new Uint8Array(total);
+  let offset   = 0;
+  for (const c of chunks) { merged.set(c, offset); offset += c.length; }
+  return merged;
+}
+
+async function decompressDeflate(compData, uncompSize) {
+  const bytes = await decompressDeflateToBytes(compData);
+  return new TextDecoder('utf-8').decode(bytes);
+}
+
+function bytesToBase64DataUrl(bytes, name) {
+  let binary = '';
+  const len = bytes.byteLength;
+  const chunkSize = 8192;
+  for (let i = 0; i < len; i += chunkSize) {
+    const chunk = bytes.subarray(i, i + chunkSize);
+    binary += String.fromCharCode.apply(null, chunk);
+  }
+  const base64 = window.btoa(binary);
+  const ext = name.split('.').pop().toLowerCase();
+  
+  let mime = 'image/png';
+  if (ext === 'jpg' || ext === 'jpeg') mime = 'image/jpeg';
+  else if (ext === 'gif') mime = 'image/gif';
+  else if (ext === 'svg') mime = 'image/svg+xml';
+  else if (ext === 'wdp') mime = 'image/vnd.ms-photo';
+  
+  return `data:${mime};base64,${base64}`;
+}
+
+function showErr(msg) {
+  document.getElementById('qlist').innerHTML = `<div class="errbox">⚠️ ${msg}</div>`;
+}
+
+/* ══════════════════════════════════════════════
+   EVENTS
+   ══════════════════════════════════════════════ */
+const dz = document.getElementById('dz');
+dz.addEventListener('dragover',  e => { e.preventDefault(); dz.classList.add('over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('over'));
+dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('over'); processFile(e.dataTransfer.files[0]); });
+document.getElementById('file-input').addEventListener('change', e => processFile(e.target.files[0]));
+
+document.getElementById('search').addEventListener('input', e => { query = e.target.value.trim(); renderAll(); });
+
+document.querySelectorAll('.fb[data-f]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.fb[data-f]').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    filter = btn.dataset.f;
+    renderAll();
+  });
+});
+
+document.getElementById('exp-btn').addEventListener('click', () => {
+  if (!allQ.length) return;
+  const a = Object.assign(document.createElement('a'), {
+    href: URL.createObjectURL(new Blob([JSON.stringify(allQ, null, 2)], { type:'application/json' })),
+    download: 'quiz-data.json'
+  });
+  a.click();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TD Math - Học toán thông minh & Luyện thi trực tuyến</title>
+    <meta name="description" content="TD Math - Nền tảng học toán tương tác hàng đầu Việt Nam. Luyện tập theo chủ đề, làm đề thi thử, xem lộ trình học tập và bứt phá điểm số cùng hàng triệu học sinh." />
+    <meta name="keywords" content="học toán online, luyện thi toán, đề thi THPT, TD math, toán lớp 12" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://td-math.vercel.app/" />
+    <meta property="og:title" content="TD Math - Học toán thông minh & Luyện thi trực tuyến" />
+    <meta property="og:description" content="Nền tảng học toán tương tác hàng đầu Việt Nam. Luyện tập theo chủ đề, làm đề thi thử, xem lộ trình học tập." />
+
+    <!-- Google Fonts: Nunito - thân thiện, tròn, phù hợp giáo dục -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
+    <!-- MathJax for rendering Math formulas -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+          processEscapes: true
+        },
+        options: {
+          ignoreHtmlClass: 'no-mathjax',
+          processHtmlClass: 'mathjax'
+        },
+        startup: {
+          ready: () => {
+            MathJax.startup.defaultReady();
+            const observer = new MutationObserver(() => {
+              if (window.MathJax && window.MathJax.typesetPromise) {
+                if (window.mathjaxTimeout) clearTimeout(window.mathjaxTimeout);
+                window.mathjaxTimeout = setTimeout(() => {
+                  window.MathJax.typesetPromise().catch((err) => console.log('MathJax error:', err));
+                }, 150);
+              }
+            });
+            observer.observe(document.body, { childList: true, subtree: true });
+          }
+        }
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

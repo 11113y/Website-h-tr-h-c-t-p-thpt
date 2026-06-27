@@ -1,0 +1,120 @@
+// Use DBML to define your database schema
+// Copy and paste this code into https://dbdiagram.io to visualize the database ERD
+
+Table users {
+  id uuid [pk, default: `gen_random_uuid()`]
+  username varchar(50) [unique, not null]
+  email varchar(100) [unique, not null]
+  password_hash varchar(255) [not null]
+  role varchar(20) [not null, default: 'student', note: 'student or admin']
+  points int [default: 0]
+  streak_count int [default: 0]
+  last_active_at timestamp
+  completed_lessons jsonb [default: '[]']
+  unlocked_lessons jsonb [default: '[]']
+  unlocked_documents jsonb [default: '[]']
+  created_at timestamp [default: `now()`]
+}
+
+Table subjects {
+  id int [pk, increment]
+  grade int [not null, note: '10, 11 or 12']
+  name varchar(100) [not null]
+  slug varchar(100) [unique, not null]
+  order_index int [default: 0]
+}
+
+Table chapters {
+  id uuid [pk, default: `gen_random_uuid()`]
+  subject_id int [ref: > subjects.id]
+  name varchar(150) [not null]
+  slug varchar(150) [unique, not null]
+  order_index int [default: 0]
+}
+
+Table lessons {
+  id uuid [pk, default: `gen_random_uuid()`]
+  chapter_id uuid [ref: > chapters.id]
+  title varchar(200) [not null]
+  slug varchar(200) [unique, not null]
+  content text [not null]
+  is_vip boolean [default: false]
+  points_required int [default: 0]
+  order_index int [default: 0]
+  created_at timestamp [default: `now()`]
+}
+
+Table questions {
+  id uuid [pk, default: `gen_random_uuid()`]
+  chapter_id uuid [ref: > chapters.id]
+  question_text text [not null]
+  question_type varchar(30) [not null, default: 'single_choice']
+  difficulty varchar(20) [not null, default: 'medium']
+  explanation text [not null]
+  points int [default: 10]
+  options jsonb [not null, default: '[]']
+  created_at timestamp [default: `now()`]
+}
+
+Table exams {
+  id uuid [pk, default: `gen_random_uuid()`]
+  title varchar(200) [not null]
+  description text
+  subject_id int [ref: > subjects.id]
+  time_limit_minutes int [default: 45]
+  question_ids jsonb [not null, default: '[]']
+  created_at timestamp [default: `now()`]
+}
+
+Table user_exam_results {
+  id uuid [pk, default: `gen_random_uuid()`]
+  user_id uuid [ref: > users.id]
+  exam_id uuid [ref: > exams.id]
+  score numeric(5,2) [not null]
+  points_earned int [default: 0]
+  time_spent_seconds int [not null]
+  answers jsonb [not null, default: '[]']
+  completed_at timestamp [default: `now()`]
+}
+
+Table collections {
+  id uuid [pk, default: `gen_random_uuid()`]
+  user_id uuid [ref: > users.id]
+  name varchar(100) [not null]
+  description text
+  question_ids jsonb [not null, default: '[]']
+  created_at timestamp [default: `now()`]
+}
+
+Table documents {
+  id uuid [pk, default: `gen_random_uuid()`]
+  subject_id int [ref: > subjects.id]
+  title varchar(200) [not null]
+  description text
+  file_url varchar(255) [not null]
+  is_vip boolean [default: false]
+  points_required int [default: 0]
+  download_count int [default: 0]
+  created_at timestamp [default: `now()`]
+}
+
+Table articles {
+  id uuid [pk, default: `gen_random_uuid()`]
+  title varchar(200) [not null]
+  content text [not null]
+  summary text
+  author_id uuid [ref: > users.id]
+  created_at timestamp [default: `now()`]
+}
+
+Table feedbacks {
+  id uuid [pk, default: `gen_random_uuid()`]
+  user_id uuid [ref: > users.id]
+  title varchar(200) [not null]
+  content text [not null]
+  feedback_type varchar(50) [not null, default: 'general', note: 'general, lesson_error, question_error, ui_bug, suggestion']
+  reference_id uuid
+  status varchar(20) [not null, default: 'pending', note: 'pending, reviewed, resolved']
+  admin_notes text
+  created_at timestamp [default: `now()`]
+}

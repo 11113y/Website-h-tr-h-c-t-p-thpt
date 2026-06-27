@@ -1,0 +1,382 @@
+[
+  {
+    "num": 1,
+    "tag": "HIMA",
+    "question": "Trong không gian Oxyz , cho hai điểm A 1;1;-2 và B 2;2;1 . Vectơ AB có tọa độ là",
+    "answer": "C",
+    "choices": [
+      {
+        "key": "A",
+        "text": "-1;-1;-3"
+      },
+      {
+        "key": "B",
+        "text": "3;1;1"
+      },
+      {
+        "key": "C",
+        "text": "1;1;3"
+      },
+      {
+        "key": "D",
+        "text": "3;3;-1"
+      }
+    ],
+    "solution": ""
+  },
+  {
+    "num": 2,
+    "tag": "HIMA",
+    "question": "Cho hàm số y=f x có bảng biến thiên như sau: Hàm số đã cho đồng biến trên khoảng nào dưới đây?",
+    "answer": "B",
+    "choices": [
+      {
+        "key": "A",
+        "text": "-3;3"
+      },
+      {
+        "key": "B",
+        "text": "-3;0"
+      },
+      {
+        "key": "C",
+        "text": "0;3"
+      },
+      {
+        "key": "D",
+        "text": "-∞;-3"
+      }
+    ],
+    "solution": ""
+  },
+  {
+    "num": 3,
+    "tag": "HIMA",
+    "question": "Cho hình lâp phương ABCD. A ' B ' C ' D ' có độ dài cạnh bằng 1. Độ dài của vectơ AB + AD + A A ' bằng",
+    "answer": "C",
+    "choices": [
+      {
+        "key": "A",
+        "text": "2"
+      },
+      {
+        "key": "B",
+        "text": "3"
+      },
+      {
+        "key": "C",
+        "text": "3"
+      },
+      {
+        "key": "D",
+        "text": "2 3"
+      }
+    ],
+    "solution": "Áp dụng quy tắc hình hộp: AB + AD + A A ' = A C ' ⇒ AB + AD + A A ' = A C ' =A C ' = A B 2 +A D 2 +A A ' 2 = 1 2 + 1 2 + 1 2 = 3 Độ dài của vectơ AB + AD + A A ' bằng 3 ."
+  },
+  {
+    "num": 4,
+    "tag": "HIMA",
+    "question": "Cho hàm số y=f x có đồ thị như hình vẽ Điểm cực đại của hàm số đã cho là",
+    "answer": "C",
+    "choices": [
+      {
+        "key": "A",
+        "text": "x=1"
+      },
+      {
+        "key": "B",
+        "text": "x=2"
+      },
+      {
+        "key": "C",
+        "text": "x=0"
+      },
+      {
+        "key": "D",
+        "text": "x= - 2"
+      }
+    ],
+    "solution": "Từ đồ thị hàm số, điểm cực đại của hàm số đã cho là x=0 ."
+  },
+  {
+    "num": 5,
+    "tag": "HIMA",
+    "question": "Trong không gian với hệ toạ độ Oxyz , cho điểm M thoả mãn OM = - 2 i + j +3 k . Toạ độ điểm M là'",
+    "answer": "C",
+    "choices": [
+      {
+        "key": "A",
+        "text": "2; - 1; - 3"
+      },
+      {
+        "key": "B",
+        "text": "2;1;3"
+      },
+      {
+        "key": "C",
+        "text": "- 2;1;3"
+      },
+      {
+        "key": "D",
+        "text": "- 2; - 1;3"
+      }
+    ],
+    "solution": "Ta có: OM = - 2 i + j +3 k ⇒ M - 2;1;3 ."
+  },
+  {
+    "num": 6,
+    "tag": "HIMA",
+    "question": "Diện tích phần gạch sọc trong hình vẽ bằng:",
+    "answer": "D",
+    "choices": [
+      {
+        "key": "A",
+        "text": "-3 1 - x 2 -2x-3 dx"
+      },
+      {
+        "key": "B",
+        "text": "-3 1 x 2 -2x-3 dx"
+      },
+      {
+        "key": "C",
+        "text": "-3 1 x 2 +2x-3 dx"
+      },
+      {
+        "key": "D",
+        "text": "-3 1 - x 2 -2x+3 dx"
+      }
+    ],
+    "solution": ""
+  },
+  {
+    "num": 7,
+    "tag": "HIMA",
+    "question": "Cho khối lăng trụ có thể tích V=32 , đáy là hình vuông cạnh bằng 4. Chiều cao h của khối lăng trụ đā cho bằng",
+    "answer": "D",
+    "choices": [
+      {
+        "key": "A",
+        "text": "h=4"
+      },
+      {
+        "key": "B",
+        "text": "h=8"
+      },
+      {
+        "key": "C",
+        "text": "h=16"
+      },
+      {
+        "key": "D",
+        "text": "h=2"
+      }
+    ],
+    "solution": "Chiều cao h= V S = 32 4 2 =2 ."
+  },
+  {
+    "num": 8,
+    "tag": "HIMA",
+    "question": "Cho hai biến cố A , B với 0&lt; P B &lt;1. Phát biểu nào sau đây là đúng ?",
+    "answer": "D",
+    "choices": [
+      {
+        "key": "A",
+        "text": "P A = P B . P A | B + P B . P A | B"
+      },
+      {
+        "key": "B",
+        "text": "P A = P B . P A | B - P B . P A | B"
+      },
+      {
+        "key": "C",
+        "text": "P A = P B . P A | B - P B . P A | B"
+      },
+      {
+        "key": "D",
+        "text": "P A = P B . P A | B + P B . P A | B"
+      }
+    ],
+    "solution": "Theo công thức xác suất toàn phần ta có: P A = P B . P A | B + P B . P A | B ."
+  },
+  {
+    "num": 9,
+    "tag": "HIMA",
+    "question": "Giá trị nhỏ nhất của hàm số y = x 2 +3 x - 1 trên đoạn 2;4 là",
+    "answer": "A",
+    "choices": [
+      {
+        "key": "A",
+        "text": "min 2;4 y =6"
+      },
+      {
+        "key": "B",
+        "text": "min 2;4 y = - 2"
+      },
+      {
+        "key": "C",
+        "text": "min 2;4 y = - 3"
+      },
+      {
+        "key": "D",
+        "text": "min 2;4 y = 19 3"
+      }
+    ],
+    "solution": "Ta có y ' = 2 x x - 1 - x 2 +3 x - 1 2 = x 2 - 2 x - 3 x - 1 2 ; y ' =0 ⇒ x 2 - 2 x - 3=0 ⇒ &amp; x = - 1 ∉ 2;4 &amp; x =3 ∈ 2;4 . Ta có: y 2 =7 , y 3 =6 , y 4 = 19 3 nên min 2;4 y = y 3 =6 ."
+  },
+  {
+    "num": 10,
+    "tag": "HIMA",
+    "question": "Trong không gian Oxyz , mặt phẳng đi qua điểm K 1;1;1 nhận u = 1;0;1 , v = 1;1;0 làm căp vectơ chỉ phương có phương trình tổng quát là",
+    "answer": "D",
+    "choices": [
+      {
+        "key": "A",
+        "text": "x + y + z - 3=0"
+      },
+      {
+        "key": "B",
+        "text": "x - y + z - 1=0"
+      },
+      {
+        "key": "C",
+        "text": "x + y - z - 1=0"
+      },
+      {
+        "key": "D",
+        "text": "- x + y + z - 1=0"
+      }
+    ],
+    "solution": "Mặt phẳng có vectơ pháp tuyến n = u , v = - 1;1;1 . Phương trình mặt phẳng là - x - 1 +1 y - 1 +1 z - 1 =0 ⇔ - x + y + z - 1=0 ."
+  },
+  {
+    "num": 11,
+    "tag": "HIMA",
+    "question": "Cho lăng trụ đều ABC . A ' B ' C ' . Góc giữa hai vectơ BA và C ' B ' bằng bao nhiêu?",
+    "answer": "C",
+    "choices": [
+      {
+        "key": "A",
+        "text": "30 °"
+      },
+      {
+        "key": "B",
+        "text": "60 °"
+      },
+      {
+        "key": "C",
+        "text": "120 °"
+      },
+      {
+        "key": "D",
+        "text": "90 °"
+      }
+    ],
+    "solution": "Ta có BA , C ' B ' = BA , CB =180 °- ABC =180 °- 60 ° =120 ° ."
+  },
+  {
+    "num": 12,
+    "tag": "HIMA",
+    "question": "Trong các hàm số cho dưới đây, hàm số nào đồng biến trên khoảng -∞; +∞ ?",
+    "answer": "B",
+    "choices": [
+      {
+        "key": "A",
+        "text": "y =- x 3 +3 x +1"
+      },
+      {
+        "key": "B",
+        "text": "y =2 x 3 + x -5"
+      },
+      {
+        "key": "C",
+        "text": "y = x"
+      },
+      {
+        "key": "D",
+        "text": "y= 2x-1 x+1"
+      }
+    ],
+    "solution": "Xét y =- x 3 +3 x +1 có y ' =-3 x 2 +3 y ' =0⇔ x =±1 nên hàm số có các khoảng đồng biến và nghịch biến. Xét y =2 x 3 + x -5 có y ' =6 x 2 +1 y ' &gt;0, ∀ x ∈R nên hàm số đồng biến trên R . Xét y = x có tập xác định là 0; +∞ nên không xác định trên toàn bộ R . Xét y = 2 x -1 x +1 Có tập xác định D =R\\ -1 nên hàm số gián đoạn tại x =-1 nên không thể đồng biến trên toàn bộ R . Phần II. Câu trắc nghiệm đúng sai. Trong mỗi ý ở mỗi câu, hãy chọn đúng hay sai"
+  },
+  {
+    "num": 1,
+    "tag": "HIMA",
+    "question": "Kết quả điểm thi khảo sát học kì I môn Toán của hai khối 10, 11 ở một trường THPT tỉnh Hưng Yên được biểu diễn bởi mẫu số liệu ghép nhóm ở bảng sau: Nhóm [1;2 [2;3 [3;4 [4;5 [5;6 [ 6;7 [7;8 [8;9 [9;10 Khối 11 11 52 118 121 95 62 47 27 7 Khối 10 1 4 35 86 117 112 102 64 19 a) Điểm trung bình của toán khối 11 là 4,83 (kết quả làm tròn đến hàng phần trăm). b) Khoảng tứ phân vị của mẫu số liệu ghép nhóm khối 10 là Δ Q K10 =2,41 (kết quả làm tròn đến hàng phần trăm). c) Nếu so sánh theo độ lệch chuẩn của mẫu số liệu ghép nhóm thì học sinh khối 10 có điểm tổng đều hơn điểm của học sinh khối 11. d) Khoảng biến thiên của mẫu số liệu ghép nhóm là R=9 .",
+    "answer": null,
+    "choices": [],
+    "solution": ""
+  },
+  {
+    "num": 2,
+    "tag": "HIMA",
+    "question": "Trong không gian Oxyz cho trước với mặt nước phẳng lặng trùng với mặt phẳng Oxy , đơn vị trên mỗi trục là mét; có hai con chim bói cá ở các vị trí A 90;0;25 và B 80;30;15 trên các cành cây đang cùng ngắm mục tiêu là một chú cá đang bơi trên mặt hồ. Khi cá nằm im ở vị trí C 20;10;0 thì hai con chim quyết định tấn công mục tiêu của mình. Chim bói cá ở vị trí A xuất phát trước con còn lại 1 giây và bay về phía con cá với vận tốc 12 ( m/s) ; chim bói cá B thì tấn công mục tiêu với vận tốc 15 ( m/s) . Góc tấn công của chim B (góc tạo bởi đường bay và mặt nước) lớn hơn 15° Tại thời điểm chim B bắt đầu lao xuống, khoảng cách giữa hai chim là 29 m (Kết quả làm tròn đến hàng đơn vị) . Tốc độ của chim A theo phương thẳng đứng ( Oz ) bằng 4 (m/s) Giả sử mặt trời chiếu xuống con chim B thì bóng con chim B trên mặt nước di chuyển với tốc độ lớn hơn 14,5 (m/s)",
+    "answer": null,
+    "choices": [],
+    "solution": ""
+  },
+  {
+    "num": 3,
+    "tag": "HIMA",
+    "question": "Một vật bắt đầu chuyển động trên trục Ox với đồ thị vận tốc theo thời gian v t được mô tả như hình vẽ dưới đây. Biết rằng từ giây thứ 8 đến giây thứ 14 thì đồ thị có dạng hình sin và vận tốc của vật được biểu diễn bởi phương trình v t =a+b cos π 3 t-8 . Quãng đường vật đi được trong 3 giây đầu tiên là 9 m Biểu thức vận tốc của vật trong khoảng thời gian t∈ 8;14 là : v t =4+2 cos π 3 t-8 Tổng quãng đường vật đi được trong 14 giây là 63m. Quãng đường vật đi được trong 10 giây đầu tiên là 48,7 m (Kết quả làm tròn đến hàng phần mười) .",
+    "answer": null,
+    "choices": [],
+    "solution": ""
+  },
+  {
+    "num": 4,
+    "tag": "HIMA",
+    "question": "Khảo sát một nhóm 50 học sinh ở một trường THPT người ta thấy rằng: Có 20 học sinh giỏi Ngoại ngữ, 15 học sinh giỏi Tin học, 10 học sinh giỏi cả Ngoại ngữ và Tin học. Chọn ngẫu nhiên một học sinh từ nhóm 50 học sinh trở lên. a) Xác suất để chọn được học sinh chỉ giỏi một môn Ngoại ngữ là 0,3. b) Xác suất để chọn được học sinh giỏi cả Ngoại ngữ và Tin học bằng 0,2. c) Xác suất để chọn được học sinh giỏi Ngoại ngữ bằng 0,4. d) Xác suất để chọn được học sinh giỏi Ngoại ngữ hoặc Tin học bằng 0,7.",
+    "answer": null,
+    "choices": [],
+    "solution": ""
+  },
+  {
+    "num": 1,
+    "tag": "HIMA",
+    "question": "Cho hàm số y= x 2 -2x-2 x+1 có đồ thị C và điểm M 1;-3 . Gọi A,B là hai điểm cực trị của đồ thị C . Tính diện tích của tam giác MAB.",
+    "answer": null,
+    "choices": [],
+    "solution": ""
+  },
+  {
+    "num": 2,
+    "tag": "HIMA",
+    "question": "0 0 0 0 Nhà máy A chuyên sản xuất một loại sản phẩm cho nhà máy B . Hai nhà máy thoả thuận rằng, hàng tháng A cung cấp cho B số lượng sản phẩm theo đơn đặt hàng của B (tối đa 100 tấn sản phẩm). nếu số lượng đặt hàng là x tấn sản phẩm thì giá bán cho mỗi tấn sản phẩm là p x =90-0,01 x 2 (triệu đồng). Chi phí để A sản xuất x tấn sản phẩm trong một tháng là C x =100+15 x (triệu đồng) (gồm 100 triệu đồng chi phí cố định và 15 triệu đồng cho mỗi tấn sản phẩm). Hỏi A bán cho B bao nhiêu tấn sản phẩm mỗi tháng để thu được lợi nhuận cao nhất?",
+    "answer": null,
+    "choices": [],
+    "solution": ""
+  },
+  {
+    "num": 3,
+    "tag": "HIMA",
+    "question": "0 0 0 0 Bạn Khôi muốn dùng các đường cong parobol để vẽ một chiếc cỏ 4 lá may mắn như hình minh họa. Mỗi cánh lá là phần được giới hạn bởi hai phần parabol đối xứng nhau qua đường thẳng AB và đặt trong hệ trục tọa độ Oxy . Diện tích một một cánh lá là phần hình phẳng giới hạn bởi hai phần parabol đó. Hãy tính diện tích c ủa chiếc cỏ 4 lá, biết rằng nó được cấu tạo bởi 4 cánh giống hệt nhau Trả lời: 36 Parabol P : y = a x 2 + bx + c đi qua các điểm A - 1;1 , O 0;0 và B 2;4 Suy ra P :y= x 2 Phương trình đường thẳng AB có dạng : d=mx+n đi qua các điểm A - 1;1 và B 2;4 Suy ra d=x+2 Vậy S 1 = - 1 2 x+2 - x 2 dx= 9 2 Diện tích của cỏ 4 lá là: S=8. S 1 =8. 9 2 =36 (đvdt)",
+    "answer": null,
+    "choices": [],
+    "solution": ""
+  },
+  {
+    "num": 4,
+    "tag": "HIMA",
+    "question": "0 0 0 0 Một sân bóng đá tiêu chuẩn có dạng hình chữ nhật với kích thước đường biên ngang là 68m ; có khung thành rộng 7,32m và cao 2,44m nằm ở chính giữa đường biên ngang. Chọn hệ trục tọa độ Oxyz sao cho gốc tọa độ O là điểm đá phạt góc, trục Ox nằm trên đường biên ngang, trục Oy nằm trên đường biên dọc, trục Oz vuông góc với sân bóng, đơn vị trên mỗi trục là mét (tham khảo hình vẽ). Một quả bóng được đá từ vị trí P 6;22;0 với vận tốc 28m/s theo hướng của vectơ v = 15; - 11;1 về phía khung thành. Giả sử quả bóng là một điểm, quỹ đạo bay của quả bóng là một đường thẳng và khung thành là một phần của mặt phẳng Oxz . Thời gian bóng từ vị trí điểm P đến khung thành là bao nhiêu giây? (kết quả làm tròn đến hàng phần trăm).",
+    "answer": null,
+    "choices": [],
+    "solution": ""
+  },
+  {
+    "num": 5,
+    "tag": "HIMA",
+    "question": "Cho một bể chứa nước có hình dạng là một lăng trụ đứng AEFB.DHGC . Mặt đáy của lăng trụ là hình thang vuông AEFB (vuông tại A và E ). Biết rằng chiều dài của bể AD=12 m chiều rộng của mặt bể AB=6m , chiều rộng của đáy bể EF=3m và chiều cao của bể AE=4m Bể được bơm nước vào với lưu lượng không đổi P=4 m 3 / giờ. Giả sử mặt nước IKJL luôn song song với đáy HGFE của bể (tham khảo hình vẽ). Tính tốc độ thay đổi chiều cao mực nước tại thời điểm t=18 giờ (đơn vị tính bằng mét trên giờ, làm tròn kết quả đến hàng phần trăm).",
+    "answer": null,
+    "choices": [],
+    "solution": ""
+  },
+  {
+    "num": 6,
+    "tag": "HIMA",
+    "question": "0 0 0 0 Một quỹ đầu tư mạo hiểm đánh giá các Startup dựa trên 6 tiêu chí bao gồm: Công nghệ, tài chính, nhân sự, quy trình, sản phẩm, thị trường. Kết quả đánh giá được thể hiện trên một biểu đồ Radar lục giác đều (như hình vẽ), trong đó mức độ đánh giá cho mỗi tiêu chí như sau: Mức 0: yếu (tâm đỏ); mức 1: khá (vòng xanh lá); mức 2: tốt (vòng tím); mức 3: xuất sắc (vòng xanh dương ngoài cùng). Giả sử quá trình đánh giá 6 tiêu chí là độc lập ngẫu nhiên. Khi đó, doanh nghiệp tiềm năng là doanh nghiệp có tổng điểm của cả 6 tiêu chí đúng bằng 16 điểm và doanh nghiệp cân bằng là doanh nghiệp có điểm số của các cặp tiêu chí đối diện nhau là bằng nhau. Biết rằng một Startup đã được đánh giá là “Doanh nghiệp tiềm năng”. Tính xác suất để Startup đó cũng là một “Doanh nghiệp cân bằng” (Kết quả làm tròn đến hàng phần trăm) Trả lời: 0,14 C1: Gọi x 1 ; x 2 ; x 3 ; x 4 ; x 5 ; x 6 lần lượt là điểm đánh giá của 6 tiêu chí Theo đề bài, mỗi tiêu chí có 4 mức điểm: 0;1;2;3 Gọi A là doanh nghiệp tiềm năng Tổng điểm 6 tiêu chí bằng 16 ⇔ x 1 + x 2 + x 3 + x 4 + x 5 + x 6 =16 * Gọi B là doanh nghiệp cân bằng: Các cặp tiêu chí đối diện nhau có điểm bằng nhau ⇔ x 1 = x 4 , x 2 = x 5 , x 3 = x 6 Trường hợp doanh nghiệp tiềm năng n A Đặt y i =3 - x i . Vì x i ∈ 0;1;2;3 ⇒ y i ∈ 0;1;2;3 Thay vào * ⇔ y 1 + y 2 + y 3 + y 4 + y 5 + y 6 =2 Trường hợp 1: Một biến bằng 2, các biến còn lại bằng 0 có C 6 1 =6 cách Trường hợp 2: Hai biến bằng 1, các biến còn lại bằng 0 có C 6 2 =15 cách Vậy tổng số trường hợp doanh nghiệp tiềm năng là: n A =6+15=21 trường hợp T rường hợp vừa “ Tiềm năng ” vừa “ Cân bằng ” n A ∩ B Để doanh nghiệp cân bằng, ta có x 1 = x 4 , x 2 = x 5 , x 3 = x 6 Thay vào * ⇔ 2 x 1 +2 x 2 +2 x 3 =16 ⇔ x 1 + x 2 + x 3 =8 Với x i ∈ 0,1,2,3 các bộ số x 1 , x 2 , x 3 có tổng bằng 8 chỉ có thể là hoán vị của bộ 3,3,2 Các bộ thỏa mãn là: 3,3,2 , 3,2,3 , 2,3,3 s uy ra n A ∩ B =3 trường hợp Vậy x ác suất cần tính là: P B|A = n A ∩ B n A = 3 21 = 1 7 ≈ 0,14 C2 3726935 97965 0 0 2419985 94615 1911985 75565 1217930 45085 315595 -19050 2915285 -102870 2645410 4445 1965325 -88900 1598295 50165 2382039 -105259 1776095 -93345 187960 -116840 1282599 -104564 -171801 121876 3338830 275590 876935 -544195 0 0 3862070 266700 4437380 208915 1793875 316230 1400175 1905 662305 15875 367030 109220 5382260 -6350 857040 290255 0 0 5361305 -147320 6020420 198280 0 0 390159 -19374 433070 -614680 131445 135255 4246245 -530225 4978400 -22225 -31115 -1165860 5275580 -114300 4923155 3810 4374515 -151765 -29241 20091 Chúc các em làm bài thật tốt ---------------- HẾT----------------",
+    "answer": null,
+    "choices": [],
+    "solution": ""
+  }
+]

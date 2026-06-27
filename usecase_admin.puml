@@ -1,0 +1,47 @@
+@startuml
+title Use Case - Admin
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Admin" as Admin
+
+rectangle "Chuc nang quan tri" {
+  usecase "Dang nhap quan tri" as UC_Login
+  usecase "Xem thong ke he thong" as UC_Dashboard
+  usecase "Quan ly tai khoan hoc sinh" as UC_Users
+  usecase "Quan ly lop / chuong / bai hoc" as UC_Learning
+  usecase "Quan ly tai lieu hoc tap" as UC_Materials
+  usecase "Quan ly cau hoi" as UC_Questions
+  usecase "Quan ly de thi" as UC_Exams
+  usecase "Nhap cau hoi / de thi tu Word" as UC_Import
+  usecase "Quan ly bai viet / blog" as UC_Articles
+  usecase "Quan ly cong thuc" as UC_Formulas
+  usecase "Duyet cong thuc dong gop" as UC_ApproveFormula
+  usecase "Quan ly gop y / phan hoi" as UC_Feedback
+  usecase "Cap nhat thong tin admin" as UC_Profile
+  usecase "Doi mat khau admin" as UC_Password
+}
+
+Admin --> UC_Login
+Admin --> UC_Dashboard
+Admin --> UC_Users
+Admin --> UC_Learning
+Admin --> UC_Materials
+Admin --> UC_Questions
+Admin --> UC_Exams
+Admin --> UC_Import
+Admin --> UC_Articles
+Admin --> UC_Formulas
+Admin --> UC_ApproveFormula
+Admin --> UC_Feedback
+Admin --> UC_Profile
+Admin --> UC_Password
+
+UC_Import ..> UC_Questions : <<include>>
+UC_Import ..> UC_Exams : <<include>>
+UC_ApproveFormula ..> UC_Formulas : <<extend>>
+UC_Password ..> UC_Profile : <<extend>>
+
+@enduml

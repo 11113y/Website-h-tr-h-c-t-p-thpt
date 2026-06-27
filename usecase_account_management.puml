@@ -1,0 +1,66 @@
+@startuml
+title Use Case - Quan Ly Tai Khoan
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Hoc sinh" as Student
+actor "Admin" as Admin
+
+rectangle "Quan ly tai khoan" {
+  usecase "Dang ky tai khoan" as UC_Register
+  usecase "Dang nhap" as UC_Login
+  usecase "Dang xuat" as UC_Logout
+  usecase "Quen mat khau" as UC_ForgotPassword
+  usecase "Dat lai mat khau" as UC_ResetPassword
+
+  usecase "Xem ho so ca nhan" as UC_ViewProfile
+  usecase "Cap nhat ten hien thi" as UC_UpdateProfile
+  usecase "Xem diem, streak va tien do" as UC_ViewStats
+  usecase "Xem lich su lam bai" as UC_ViewHistory
+  usecase "Khoi phuc streak bang diem" as UC_RestoreStreak
+
+  usecase "Xem danh sach tai khoan" as UC_ListUsers
+  usecase "Tim kiem tai khoan" as UC_SearchUsers
+  usecase "Them tai khoan hoc sinh/admin" as UC_CreateUser
+  usecase "Sua tai khoan" as UC_UpdateUser
+  usecase "Xoa tai khoan" as UC_DeleteUser
+  usecase "Chinh diem va streak hoc sinh" as UC_EditPointsStreak
+  usecase "Dat lai mat khau tai khoan" as UC_ResetUserPassword
+  usecase "Cap nhat ho so admin" as UC_AdminProfile
+  usecase "Doi mat khau admin" as UC_AdminPassword
+}
+
+Student --> UC_Register
+Student --> UC_Login
+Student --> UC_Logout
+Student --> UC_ForgotPassword
+Student --> UC_ViewProfile
+Student --> UC_UpdateProfile
+Student --> UC_ViewStats
+Student --> UC_ViewHistory
+Student --> UC_RestoreStreak
+
+Admin --> UC_Login
+Admin --> UC_Logout
+Admin --> UC_ListUsers
+Admin --> UC_SearchUsers
+Admin --> UC_CreateUser
+Admin --> UC_UpdateUser
+Admin --> UC_DeleteUser
+Admin --> UC_AdminProfile
+Admin --> UC_AdminPassword
+
+UC_ForgotPassword ..> UC_ResetPassword : <<include>>
+UC_UpdateProfile ..> UC_ViewProfile : <<extend>>
+UC_ViewStats ..> UC_ViewProfile : <<include>>
+UC_ViewHistory ..> UC_ViewProfile : <<include>>
+UC_RestoreStreak ..> UC_ViewStats : <<extend>>
+
+UC_SearchUsers ..> UC_ListUsers : <<extend>>
+UC_EditPointsStreak ..> UC_UpdateUser : <<extend>>
+UC_ResetUserPassword ..> UC_UpdateUser : <<extend>>
+UC_AdminPassword ..> UC_AdminProfile : <<extend>>
+
+@enduml

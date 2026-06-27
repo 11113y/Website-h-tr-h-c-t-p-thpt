@@ -1,0 +1,48 @@
+[package]
+name = "math-platform-backend"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "server"
+path = "src/main.rs"
+
+[dependencies]
+# Web framework
+axum            = { version = "0.7", features = ["macros", "multipart"] }
+axum-extra       = { version = "0.9", features = ["typed-header"] }
+tokio           = { version = "1", features = ["full"] }
+tower           = "0.4"
+tower-http      = { version = "0.5", features = ["cors", "fs", "trace"] }
+
+# Database
+sqlx = { version = "0.7", features = ["runtime-tokio-native-tls", "mysql", "uuid", "chrono", "json", "migrate"] }
+
+# Serialization
+serde       = { version = "1", features = ["derive"] }
+serde_json  = "1"
+
+# Auth
+jsonwebtoken = "9"
+bcrypt       = "0.15"
+
+# Types
+uuid    = { version = "1", features = ["v4", "serde"] }
+chrono  = { version = "0.4", features = ["serde"] }
+
+# Env & Config
+dotenvy = "0.15"
+
+# Error handling
+thiserror = "1"
+anyhow    = "1"
+
+# Logging
+tracing            = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# HTTP client (for potential integrations)
+reqwest = { version = "0.12", features = ["json"], optional = true }
+
+[dev-dependencies]
+# for integration tests if needed

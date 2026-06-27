@@ -1,0 +1,53 @@
+@startuml
+title Use Case Tong Quan - TD Math
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Hoc sinh" as Student
+actor "Admin" as Admin
+
+rectangle "He thong hoc Toan TD Math" {
+  usecase "Dang ky / Dang nhap" as UC_Auth
+  usecase "Hoc bai va xem tai lieu" as UC_Learn
+  usecase "Lam de thi" as UC_Exam
+  usecase "Xem ket qua va diem thuong" as UC_Result
+  usecase "Luu cau hoi / Bo suu tap" as UC_Save
+  usecase "Xem bang xep hang" as UC_Leaderboard
+  usecase "Xem va dong gop cong thuc" as UC_Formula
+  usecase "Ve do thi" as UC_Grapher
+  usecase "Doc blog" as UC_Blog
+  usecase "Gui gop y va xem phan hoi" as UC_Feedback
+
+  usecase "Quan ly noi dung hoc tap" as UC_AdminLearn
+  usecase "Quan ly cau hoi va de thi" as UC_AdminExam
+  usecase "Quan ly bai viet / tai lieu" as UC_AdminBlog
+  usecase "Duyet cong thuc dong gop" as UC_AdminFormula
+  usecase "Quan ly gop y / phan hoi" as UC_AdminFeedback
+  usecase "Xem thong ke he thong" as UC_AdminStats
+}
+
+Student --> UC_Auth
+Student --> UC_Learn
+Student --> UC_Exam
+Student --> UC_Result
+Student --> UC_Save
+Student --> UC_Leaderboard
+Student --> UC_Formula
+Student --> UC_Grapher
+Student --> UC_Blog
+Student --> UC_Feedback
+
+Admin --> UC_AdminLearn
+Admin --> UC_AdminExam
+Admin --> UC_AdminBlog
+Admin --> UC_AdminFormula
+Admin --> UC_AdminFeedback
+Admin --> UC_AdminStats
+
+UC_Exam ..> UC_Result : <<include>>
+UC_AdminFormula ..> UC_Formula : <<extend>>
+UC_AdminFeedback ..> UC_Feedback : <<extend>>
+
+@enduml

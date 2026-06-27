@@ -1,0 +1,600 @@
+[
+  {
+    "num": 1,
+    "tag": "HIMA",
+    "section": "I",
+    "qtext": "Phương trình  với  có nghiệm là:",
+    "choices": [
+      {
+        "key": "A",
+        "text": "và"
+      },
+      {
+        "key": "B",
+        "text": "và"
+      },
+      {
+        "key": "C",
+        "text": "và"
+      },
+      {
+        "key": "D",
+        "text": "và"
+      }
+    ],
+    "answer": {
+      "type": "abcd",
+      "val": "B"
+    },
+    "solution": [
+      "⇔[&x+10^{o}=30^{o}+k360^{o}&x+10^{o}=180^{o}-30^{o}+k360^{o})⇔[&x=20^{o}+k360^{o}&x=140^{o}+k360^{o})(k∈Z)",
+      "Mà ."
+    ]
+  },
+  {
+    "num": 2,
+    "tag": "HIMA",
+    "section": "I",
+    "qtext": "Cho hàm số  xác định trên R và có đồ thị bên dưới. Mệnh đề nào dưới đây sai?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Hàm số đã cho có điểm cực tiểu bằng"
+      },
+      {
+        "key": "B",
+        "text": "Hàm số đã cho có điểm cực đại bằng"
+      },
+      {
+        "key": "C",
+        "text": "Hàm số đã cho có giá trị cực đại bằng"
+      },
+      {
+        "key": "D",
+        "text": "Hàm số đã cho có giá trị cực tiểu bằng"
+      }
+    ],
+    "answer": {
+      "type": "abcd",
+      "val": "C"
+    },
+    "solution": [
+      "Từ  đồ thị đã cho, ta có",
+      "Hàm số đã cho có điểm cực tiểu bằng  và giá trị cực tiểu bằng .",
+      "Hàm số đã cho có điểm cực đại bằng  và giá trị cực đại bằng ."
+    ]
+  },
+  {
+    "num": 3,
+    "tag": "HIMA",
+    "section": "I",
+    "qtext": "Cho cấp số cộng  với . Công sai của cấp số cộng đã cho bằng",
+    "choices": [
+      {
+        "key": "A",
+        "text": ""
+      },
+      {
+        "key": "B",
+        "text": ""
+      },
+      {
+        "key": "C",
+        "text": ""
+      },
+      {
+        "key": "D",
+        "text": ""
+      }
+    ],
+    "answer": {
+      "type": "abcd",
+      "val": "B"
+    },
+    "solution": []
+  },
+  {
+    "num": 4,
+    "tag": "HIMA",
+    "section": "I",
+    "qtext": "Hằng ngày ông Thắng đều đi xe buýt từ nhà đến cơ quan. Dưới đây là bảng thống kê thời gian của 100 lần ông Thắng đi xe buýt từ nhà đến cơ quan. Thời gian (phút) Số lượt 22 38 27 8 4 1 Tứ phân vị thứ nhất của mẫu số liệu ghép nhóm trên (làm tròn kết quả đến hàng phần trăm) là",
+    "choices": [
+      {
+        "key": "A",
+        "text": ""
+      },
+      {
+        "key": "B",
+        "text": ""
+      },
+      {
+        "key": "C",
+        "text": ""
+      },
+      {
+        "key": "D",
+        "text": ""
+      }
+    ],
+    "answer": {
+      "type": "abcd",
+      "val": "C"
+    },
+    "solution": []
+  },
+  {
+    "num": 5,
+    "tag": "HIMA",
+    "section": "I",
+    "qtext": "Cho hình lập phương . Góc giữa hai vectơ  và  là:",
+    "choices": [
+      {
+        "key": "A",
+        "text": ""
+      },
+      {
+        "key": "B",
+        "text": ""
+      },
+      {
+        "key": "C",
+        "text": ""
+      },
+      {
+        "key": "D",
+        "text": ""
+      }
+    ],
+    "answer": {
+      "type": "abcd",
+      "val": "C"
+    },
+    "solution": []
+  },
+  {
+    "num": 6,
+    "tag": "HIMA",
+    "section": "I",
+    "qtext": "Cho hàm số  xác định trên R\\{-1} và bảng biến thiên như sau: Mệnh đề nào dưới đây đúng?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Hàm số đã cho nghịch biến trên các khoảng và"
+      },
+      {
+        "key": "B",
+        "text": "Hàm số đã cho đồng biến trên khoảng"
+      },
+      {
+        "key": "C",
+        "text": "Hàm số đã cho có điểm cực tiểu bằng"
+      },
+      {
+        "key": "D",
+        "text": "Hàm số đã cho có giá trị cực đại bằng"
+      }
+    ],
+    "answer": {
+      "type": "abcd",
+      "val": "A"
+    },
+    "solution": []
+  },
+  {
+    "num": 7,
+    "tag": "HIMA",
+    "section": "I",
+    "qtext": "Cho hình chóp  có đáy là hình thang, // và . Lấy thuộc cạnh ,  thuộc cạnh  sao cho . Khẳng định nào dưới đây đúng?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Đường thẳng  song song với mặt phẳng"
+      },
+      {
+        "key": "B",
+        "text": "Đường thẳng  cắt đường thẳng"
+      },
+      {
+        "key": "C",
+        "text": "Đường thẳng  song song với mặt phẳng"
+      },
+      {
+        "key": "D",
+        "text": "Đường thẳng  song song với mặt phẳng"
+      }
+    ],
+    "answer": {
+      "type": "abcd",
+      "val": "C"
+    },
+    "solution": [
+      "Vì  nên đường thẳng  // . Mà ,  nên  song song với mặt phẳng ."
+    ]
+  },
+  {
+    "num": 8,
+    "tag": "HIMA",
+    "section": "I",
+    "qtext": "Nếu  thì  bằng bao nhiêu?",
+    "choices": [
+      {
+        "key": "A",
+        "text": ""
+      },
+      {
+        "key": "B",
+        "text": ""
+      },
+      {
+        "key": "C",
+        "text": ""
+      },
+      {
+        "key": "D",
+        "text": ""
+      }
+    ],
+    "answer": {
+      "type": "abcd",
+      "val": "A"
+    },
+    "solution": [
+      "Ta có ."
+    ]
+  },
+  {
+    "num": 9,
+    "tag": "HIMA",
+    "section": "I",
+    "qtext": "Cho hình chóp , có đáy  là hình bình hành tâm . Tam giác  đều cạnh bằng . Khi đó  bằng:",
+    "choices": [
+      {
+        "key": "A",
+        "text": ""
+      },
+      {
+        "key": "B",
+        "text": ""
+      },
+      {
+        "key": "C",
+        "text": ""
+      },
+      {
+        "key": "D",
+        "text": ""
+      }
+    ],
+    "answer": {
+      "type": "abcd",
+      "val": "D"
+    },
+    "solution": [
+      "Vì tam giác  đều cạnh bằng  nên .",
+      "Do đó"
+    ]
+  },
+  {
+    "num": 10,
+    "tag": "HIMA",
+    "section": "I",
+    "qtext": "Cho hình phẳng  được giới hạn bởi đồ thị của hàm số  và đồ thị của hàm số  (tham khảo hình vẽ). Thể tích của khối tròn xoay thu được khi quay  quanh trục  bằng",
+    "choices": [
+      {
+        "key": "A",
+        "text": ""
+      },
+      {
+        "key": "B",
+        "text": ""
+      },
+      {
+        "key": "C",
+        "text": ""
+      },
+      {
+        "key": "D",
+        "text": ""
+      }
+    ],
+    "answer": {
+      "type": "abcd",
+      "val": "B"
+    },
+    "solution": []
+  },
+  {
+    "num": 11,
+    "tag": "HIMA",
+    "section": "I",
+    "qtext": "Trong không gian tọa độ , mặt phẳng  vuông góc với mặt phẳng nào dưới đây?",
+    "choices": [
+      {
+        "key": "A",
+        "text": ""
+      },
+      {
+        "key": "B",
+        "text": ""
+      },
+      {
+        "key": "C",
+        "text": ""
+      },
+      {
+        "key": "D",
+        "text": ""
+      }
+    ],
+    "answer": {
+      "type": "abcd",
+      "val": "A"
+    },
+    "solution": []
+  },
+  {
+    "num": 12,
+    "tag": "HIMA",
+    "section": "I",
+    "qtext": "Trong không gian với hệ toạ độ , khoảng cách từ điểm  đến mặt phẳng  bằng",
+    "choices": [
+      {
+        "key": "A",
+        "text": "4"
+      },
+      {
+        "key": "B",
+        "text": "5"
+      },
+      {
+        "key": "C",
+        "text": "3"
+      },
+      {
+        "key": "D",
+        "text": "2"
+      }
+    ],
+    "answer": {
+      "type": "abcd",
+      "val": "D"
+    },
+    "solution": []
+  },
+  {
+    "num": 1,
+    "tag": "HIMA",
+    "section": "II",
+    "qtext": "Bạn Nam chạy bộ trong 2 giờ, vận tốc  phụ thuộc vào thời gian  có đồ thị là một phần của đường Parabol với đỉnh  và trục đối xứng song song với trục tung  như hình vẽ. Vận tốc chạy bộ của bạn Nam trong giờ thứ tăng dần. Vận tốc lớn nhất trong 2 giờ chạy của bạn Nam là . Gia tốc chạy bộ của bạn Nam tại thời điểm giờ là . Quãng đường bạn Nam chạy được trong 1 giờ 30 phút kể từ lúc bắt đầu chạy là  (kết quả làm tròn đến 2 chữ số thập phân).",
+    "choices": [],
+    "answer": {
+      "type": "tf",
+      "vals": [
+        "S",
+        "Đ",
+        "S",
+        "S"
+      ]
+    },
+    "solution": [
+      "a) Từ đồ thị ta thấy: Vận tốc chạy bộ của bạn Nam trong khoảng  giờ  đầu tăng dần và  giờ sau giảm dần.",
+      "Vậy vận tốc chạy bộ của bạn Nam trong trong giờ thứ giảm dần.",
+      "c) Đồ thị  đi qua gốc tọa độ nên  có dạng .",
+      "Đồ thị  có đỉnh là  nên",
+      "Gia tốc chạy bộ của bạn Nam tại thời điểm   là :",
+      "d) Ta có 1 giờ 30 phút = 1,5 giờ .",
+      "Do đó, quãng đường bạn Nam chạy được trong 1 giờ 30 phút kể từ lúc bắt đầu chạy là",
+      "."
+    ]
+  },
+  {
+    "num": 2,
+    "tag": "HIMA",
+    "section": "II",
+    "qtext": "Cho hàm số Tập xác định của hàm số đã cho là D=R\\{-\\frac{1}{2}}. Phương trình  có hai nghiệm nguyên dương phân biệt. Hàm số đã cho có hai điểm cực trị và hai điểm cực trị này nằm về hai phía của trục tung Khi đồ thị hàm số đã cho có hai điểm cực trị thì đường thẳng đi qua hai điểm cực trị của đồ thị hàm số có phương trình",
+    "choices": [],
+    "answer": {
+      "type": "tf",
+      "vals": [
+        "Đ",
+        "S",
+        "Đ",
+        "Đ"
+      ]
+    },
+    "solution": [
+      "a) Tập xác định D=R\\{-\\frac{1}{2}}.",
+      "b) , .",
+      "c) Đồ thị hàm số có hai điểm cực trị là  và  và hai điểm cực trị này nằm về hai phía của trục tung",
+      "d) Phương trình đường thẳng qua hai điểm cực trị  của đồ thị hàm số đã cho là: ."
+    ]
+  },
+  {
+    "num": 3,
+    "tag": "HIMA",
+    "section": "II",
+    "qtext": "Thầy Nam muốn xây một ngôi nhà có kích thước như hình 1. Ngôi nhà được gắn trong hệ trục tọa độ  như hình 2 (đơn vị: mét), trong đó nền nhà, bốn bức tường là hình chữ nhật và hai mái nhà là hai hình chữ nhật bằng nhau. \\vec{OP}=(4;0;4,7) Thầy Nam muốn treo bóng đèn tại trung điểm cạnh . Tọa độ vị trí bóng đèn là . Hai mái nhà hợp nhau một góc bằng  (làm tròn kết quả đến hàng phần mười của độ).",
+    "choices": [],
+    "answer": {
+      "type": "tf",
+      "vals": [
+        "Đ",
+        "Đ",
+        "Đ",
+        "S"
+      ]
+    },
+    "solution": [
+      "Từ hình vẽ, ta có kích thước ngôi nhà như sau:",
+      "Tọa độ các điểm là :",
+      ".",
+      "a)",
+      "b)",
+      "c) Tọa độ trung điểm cạnh  là",
+      "d) góc hợp bởi hai mái nhà là góc hai mặt phẳng  và (  hay góc",
+      "Ta có: .",
+      "Suy ra cos\\vec{EPF}=cos(\\vec{PE},\\vec{PF})=\\frac{\\vec{PE}⋅\\vec{PF}}{|\\vec{PE}|⋅|\\vec{PF}|}=\\frac{(-4).(4)+0.0+(-1,2).(-1,2)}{(-4)^{2}+0^{2}+(-1,2)^{2}⋅4^{2}+0^{2}+(-1,2)^{2}}=-\\frac{91}{109}.",
+      "⇒\\vec{EPF}≈146,6^{0}. Vậy hai mái nhà hợp nhau một góc bằng ."
+    ]
+  },
+  {
+    "num": 4,
+    "tag": "HIMA",
+    "section": "II",
+    "qtext": "Trong một cuộc khảo sát tình trạng công việc trên  người chỉ có bằng tốt nghiệp THPT tại một địa phương, người ta thu được số liệu như bảng dưới đây Chọn ngẫu nhiên một người trong nhóm này. Khi đó Xác suất để chọn được một nam là . Xác suất để chọn được một người có việc làm là . Tại địa phương này, nếu chỉ có bằng tốt nghiệp THPT thì tỉ lệ nữ thất nghiệp sẽ cao hơn nam. Khảo sát cho thấy xác suất để một người thất nghiệp khi người đó là nữ cao gấp 7 lần xác suất để một người thất nghiệp khi người đó là nam. Biết rằng đã chọn được một người có việc làm, xác suất để người này là nữ là .",
+    "choices": [],
+    "answer": {
+      "type": "tf",
+      "vals": [
+        "Đ",
+        "Đ",
+        "S",
+        "Đ"
+      ]
+    },
+    "solution": [
+      "a) Gọi  là biến cố:”Chọn được một người là nam”.",
+      "Ta có",
+      "b) Gọi  là biến cố:”Chọn được một người có việc làm”.",
+      "Ta có",
+      "c) Xác suất để một người thất nghiệp khi người đó là nữ cao gấp  lần xác suất để một người thất nghiệp khi người đó là nam.",
+      "d) Gọi  là biến cố:”Chọn được một người là nữ”.",
+      "Gọi  là biến cố:”Chọn được một người có việc làm”.",
+      "Ta tính",
+      "Ta có"
+    ]
+  },
+  {
+    "num": 1,
+    "tag": "HIMA",
+    "section": "III",
+    "qtext": "Để trang trí một bảng gỗ hình chữ nhật  có chiều dài  và chiều rộng , người ta thiết kế một logo là hình phẳng giới hạn bởi nửa đường tròn đường kính tiếp xúc với , hai đường cong  là một phần của các đường parabol có trục đối xứng lần lượt là  với  là trung điểm của (tham khảo hình vẽ). Phần logo được sơn màu xanh với chi phí  đồng/  và phần còn lại của bảng gỗ được sơn màu trắng với chi phí  đồng/ . Hỏi cần bỏ ra bao nhiêu nghìn đồng để trang trí bảng gỗ trên (kết quả làm tròn đến hàng đơn vị)?",
+    "choices": [],
+    "answer": {
+      "type": "short",
+      "val": "1923",
+      "rest": ""
+    },
+    "solution": [
+      "Diện tích hình chữ nhật  bằng .",
+      "Diện tích của nửa đường tròn đường kính  bằng .",
+      "Ta xác định phương trình của parabol.",
+      "Chọn hệ trục tọa độ  như hình vẽ:",
+      "Gọi phương trình parabol có đỉnh  là , theo bài ra ta có:",
+      "Vậy .",
+      "Diện tích của hình phẳng giới hạn bởi , trục hoành và hai đường thẳng  bằng: .",
+      "Do tính đối xứng nên hình phẳng giới hạn bởi parabol có đỉnh , trục đối xứng , trục hoành và hai đường thẳng  có diện tích bằng .",
+      "Tổng diện tích phần bảng gỗ sơn màu xanh là: .",
+      "Diện tích của phần bảng gỗ sơn màu trắng là: .",
+      "Chi phí cần bỏ ra là:  (nghìn đồng)."
+    ]
+  },
+  {
+    "num": 2,
+    "tag": "HIMA",
+    "section": "III",
+    "qtext": "Một công ty chuyên sản xuất dụng cụ thể thao nhận được đơn đặt hàng sản xuất  quả bóng rổ. Công ty có một số máy móc, mỗi máy có khả năng sản xuất  quả bóng rổ trong một giờ. Chi phí thiết lập mỗi máy là  nghìn đồng. Sau khi thiết lập, quá trình sản xuất sẽ diễn ra hoàn toàn tự động và chỉ cần có người giám sát. Chi phí trả cho người giám sát là  nghìn đồng mỗi giờ. Số máy móc công ty cần sử dụng để chi phí hoạt động đạt mức thấp nhất là bao nhiêu?",
+    "choices": [],
+    "answer": {
+      "type": "short",
+      "val": "15",
+      "rest": ""
+    },
+    "solution": [
+      "Gọi số máy móc công ty cần sử dụng để sản xuất  quả bóng rổ là:  ().",
+      "Chi phí thiết lập mỗi máy là  nghìn đồng nên chi phí thiết lập  máy là nghìn đồng.",
+      "Do mỗi máy sản xuất trong 1h được  quả bóng rổ nên  máy trong 1h sẽ sản xuất được  quả.",
+      "Để sản xuất  quả bóng thì cần (h).",
+      "Chi phí trả cho người giám sát là  nghìn đồng 1h nên chi phí cần trả cho người giám sát là: nghìn đồng.",
+      "Tổng chi phí phải trả đề sản xuất  quả bóng là:",
+      "Ta có:",
+      "BBT:",
+      "Từ BBT ta có đạt giá trị bé nhất tại .",
+      "Vậy số máy móc công ty cần sử dụng để chi phí hoạt động đạt mức thấp nhất là 15."
+    ]
+  },
+  {
+    "num": 3,
+    "tag": "HIMA",
+    "section": "III",
+    "qtext": "Cho hình lăng trụ đứng  có đáy  là tam giác vuông tại ,  và . Tính khoảng cách từ điểm  đến mặt phẳng .",
+    "choices": [],
+    "answer": {
+      "type": "short",
+      "val": "3",
+      "rest": ""
+    },
+    "solution": [
+      "Kẻ; .",
+      "Ta có: .",
+      "Mà .",
+      "Do đó khoảng cách từ điểm  đến mặt phẳng  bằng .",
+      "Xét tam giác  vuông tại  ta có .",
+      "Xét tam giác  vuông tại  ta có ."
+    ]
+  },
+  {
+    "num": 4,
+    "tag": "HIMA",
+    "section": "III",
+    "qtext": "Có hai hộp đựng các viên bi: Hộp  có 6 bi đỏ và 4 bi xanh, hộp  có 5 bi đỏ và 5 bi xanh (các viên bi có cùng kích thước và khối lượng). Bạn Minh lấy ngẫu nhiên một viên bi từ hộp , bạn Như lấy ngẫu nhiên một viên bi từ hộp . Biết rằng có viên bi đỏ được lấy ra, khi đó xác suất để bạn Như lấy được viên bi đỏ là ( tối giản). Tính",
+    "choices": [],
+    "answer": {
+      "type": "short",
+      "val": "-3",
+      "rest": ""
+    },
+    "solution": [
+      "Gọi  là biến cố: “Bạn Như lấy được viên bi đỏ”.",
+      "Gọi  là biến cố: “Có viên bi đỏ trong hai viên được lấy ra”.",
+      "Ta cần tìm xác suất .",
+      "Theo công thức xác suất có điều kiện:",
+      "Ta có  (số cách lấy hai viên bi trong đó có ít nhất 1 bi đỏ) và  (số cách lấy hai viên bi trong đó viên bi của bạn Như là bi đỏ).",
+      "Thay số, ta được",
+      "Vậy"
+    ]
+  },
+  {
+    "num": 5,
+    "tag": "HIMA",
+    "section": "III",
+    "qtext": "Trong không gian với hệ trục , giả sử mặt đất trùng với mặt phẳng . Một bóng đèn trang trí dạng khối cầu có tâm  và bán kính  được treo cố định lên trần nhà (đơn vị trên mỗi trục tọa độ là ). Một con kiến bò tùy ý trên bóng đèn và một con kiến khác bò tùy ý trên mặt đất, giả sử vectơ tạo bởi tọa độ vị trí của 2 con kiến luôn cùng phương với đường thẳng (coi mỗi con kiến là một điểm). Biết lúc 2 con kiến gần nhau nhất có khoảng cách bằng . Bán khối cầu có độ dài bao nhiêu .",
+    "choices": [],
+    "answer": {
+      "type": "short",
+      "val": "20",
+      "rest": ""
+    },
+    "solution": [
+      "+ Gọi  là góc tạo bởi  và mặt  suy ra: .",
+      "Gọi  là hình chiếu của  lên , gọi  là giao điểm của  và khối cầu .  là giao điểm của đường thẳng qua  và song song  với .",
+      "Vì  là độ dài ngắn nhất giữa khối cầu  và  nên lúc 2 con kiến gần nhau nhất thì một con ở  và một con ở .",
+      "+ Theo giả thiết: , suy ra: .",
+      "Vậy"
+    ]
+  },
+  {
+    "num": 6,
+    "tag": "HIMA",
+    "section": "III",
+    "qtext": "Một mô hình trang trí có dạng là hình lập phương , cạnh bằng m (như hình vẽ). Người ta cần nối một đường dây điện đi từ điểm  (là trung điểm của ) đi qua điểm  thuộc cạnh , đi tiếp qua điểm  thuộc cạnh  rồi tới điểm . Biết độ dài đoạn dây điện bằng m. Tính độ dài đoạn (làm tròn kết quả đến hàng phần trăm)",
+    "choices": [],
+    "answer": {
+      "type": "short",
+      "val": "4,17",
+      "rest": ""
+    },
+    "solution": [
+      "Trải hình lập phương ra trên mặt phẳng ta được hình vẽ",
+      "Ta có  và .",
+      "Ta thấy",
+      "Suy ra  thẳng hàng",
+      "Xét tam giác , có",
+      "+ tan\\vec{D^{'}B^{'}E}=\\frac{15}{20}=\\frac{A^{'}N}{10} và .",
+      "+  và .",
+      "Vậy (m)",
+      "Chị Hiền Mai chúc các em làm bài thật tốt!!",
+      "---------------- HẾT----------------"
+    ]
+  }
+]
